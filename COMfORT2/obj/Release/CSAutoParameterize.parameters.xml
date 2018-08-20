@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ComfortModel-Web.config Connection String" description="ComfortModel Connection String used in web.config by the application to access the database." defaultValue="data source=.\SQLEXPRESS;initial catalog=COMfORT2.Models.ComfortModel;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\smale\\Desktop\\COMfORT2\\COMfORT2\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ComfortModel']/@connectionString" />
+  </parameter>
+</parameters>

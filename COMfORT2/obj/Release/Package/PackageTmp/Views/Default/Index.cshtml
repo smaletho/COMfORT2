@@ -1,0 +1,19 @@
+﻿@model COMfORT2.Controllers.ViewController.IndexModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.ActionLink("go to book 1", "Index", new { Controller = "View", id = 1 })
+
+<br />
+<br />
+<br />
+@Html.ActionLink("go upload", "UploadFile", "View")
+
+<br />
+<br />
+<br />
+<br />
+@Html.ActionLink("go zip", "ZipTest")

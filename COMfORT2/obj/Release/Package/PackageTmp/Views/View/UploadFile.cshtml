@@ -1,0 +1,14 @@
+﻿@model COMfORT2.Controllers.ViewController.IndexModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@using (Html.BeginForm("ReadXml", "View", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.TextBoxFor(m => m.File, new { type = "file" })
+    @Html.ValidationMessageFor(m => m.File)
+    <button type="submit">subimt</button>
+}
