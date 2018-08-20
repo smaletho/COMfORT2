@@ -12,6 +12,10 @@
         var id = $(this).data('id');
         loadPage(id, "section");
     });
+    $(".dot").on('click', function () {
+        var id = $(this).data('page');
+        loadPage(id, "page");
+    });
 }
 
 function unbindNavigation() {
@@ -19,6 +23,7 @@ function unbindNavigation() {
     $("#previous-button").unbind();
     $(".chapter-item").unbind();
     $(".section-item").unbind();
+    $(".dot").unbind();
 }
 
 
@@ -156,6 +161,18 @@ function updateNavigation(previousLocation) {
         populateMenus();
         $(".section-item[data-id='" + CurrentLocation.Section + "']").addClass("selected");
         $(".chapter-item[data-id='" + CurrentLocation.Chapter + "']").addClass("selected");
+
+        // move the page arrow
+        var mod = $(ConfigXml).find("#" + CurrentLocation.Module).first();
+        var marginCount = 0;
+        $(mod).find("page").each(function (k, v) {
+            if ($(this).prop('id') == CurrentLocation.Page) {
+                $("#arrow-pointer").css('margin-left', marginCount + "px");
+                return false;
+            }
+            marginCount += 30;
+        });
+        
     } else {
         // use the first page
 
@@ -210,10 +227,12 @@ function populateMenus() {
     if ($("#module-name").html() == "") {
         var mod = $(ConfigXml).find("#" + CurrentLocation.Module).first();
         var name = mod[0].attributes.name.value;
-        var color = mod[0].attributes.maincolor.value;
-        var fontColor = mod[0].attributes.fontcolor.value;
+        //var color = mod[0].attributes.maincolor.value;
+        //var fontColor = mod[0].attributes.fontcolor.value;
 
         $("#module-name").html(name);
+        $("#inner-window").removeClass();
+        $("#inner-window").addClass("theme" + mod[0].attributes.theme.value);
         //$("#top-bar").css('background-color', color);
         //$("#module-name").css('color', fontColor);
     }

@@ -1,8 +1,5 @@
 function offlineLoadInit() {
 
-
-
-    //$("#offline-load").css('display', 'table');
     $("#loading").show();
 
     updateLoadingText('Loading file');
@@ -35,7 +32,6 @@ function processOfflinePageContents() {
         setTimeout(function () {
             updateLoadingText('');
             $("#loading").hide();
-            $("#offline-load").css('display', 'none');
             $("#main-window").css('display', 'table');
 
             secondInit();
@@ -86,7 +82,6 @@ function processOfflinePageContents() {
 //    setTimeout(function () {
 //        updateLoadingText('');
 //        $("#loading").hide();
-//        $("#offline-load").css('display', 'none');
 //        $("#main-window").css('display', 'table');
 
 //        secondInit();

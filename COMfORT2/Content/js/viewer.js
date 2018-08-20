@@ -2,7 +2,7 @@
 var resizeTimer;
 
 $(function () {
-    $("#offline-load").css('display', 'table');
+    //$("#offline-load").css('display', 'table');
 
     // load the file
     $("#page-file").on('change', function () {

@@ -1,17 +1,147 @@
+#inner-window.theme1 #module-name {
+    color: #85496f;
+}
+
+#inner-window.theme1 #chapter-list .chapter-item {
+    background-color: #c3a3b6;
+    margin-top:9px;
+}
+
+    #inner-window.theme1 #chapter-list .chapter-item.selected {
+        color: #85496f;
+        background-color:white;
+        margin-top:10px;
+    }
+
+#inner-window.theme1 #section-list .section-item {
+    background-color: #85496f;
+}
+
+#inner-window.theme1 #section-list .selected {
+    border-color: #85496f;
+    color: #85496f;
+    background-color:white;
+}
+
+#inner-window.theme1 #page-dots #page-dot-content .dot:hover {
+    color: #85496f;
+}
+
+#inner-window.theme1 #page-dots #page-dot-content .dot.selected {
+    background-color: #85496f;
+}
+
+#inner-window.theme1 #arrow-bar {
+    background-color: #85496f;
+}
+
+
+
+#module-name {
+    color: black;
+    font-weight: bold;
+    font-size: 26pt;
+    display: table;
+    padding-top: 8px;
+    margin-left: 150px;
+}
+
+#chapter-list .chapter-item.selected {
+    background-color: white;
+    color: black;
+    margin-top:10px;
+}
+
+#section-list .section-item {
+    background-color: black;
+
+
+    float: left;
+    border: 1px solid;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 5px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    border: 4px outset white;
+    font-weight: bold;
+    color: white;
+}
+
+#section-list .selected {
+    border: 4px inset black;
+    color: black;
+    background-color: white;
+}
+
+
+
+#page-dots #page-dot-content .dot:hover {
+    background-color: white;
+    color: black;
+
+
+
+    margin-top: -19px;
+}
+
+#page-dots #page-dot-content .dot.selected {
+    background-color: black;
+    color: white;
+}
+
+#arrow-bar {
+    background: black;
+
+
+    display: table;
+    margin: 0 auto;
+    height: 15px;
+    width: 100%;
+}
+
+#chapter-list .chapter-item {
+    background-color: gray;
+    color: black;
+
+
+    float: left;
+    margin-top: 9px;
+    padding: 11px 20px 9px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 10pt;
+    font-weight: bold;
+    text-transform: lowercase;
+    border-radius: 10px 10px 0 0;
+}
+
+
+
+
+
+
+
+
+
+
 body {
     background-color: black;
     overflow:hidden;
 }
 
-#offline-load {
-    display: none;
-}
 
 div {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-
+#header {
+    background-color: #505967;
+    top: 0;
+    left: 0;
+    height: 135px;
+}
 
 #main-window {
     display: table;
@@ -135,14 +265,7 @@ div {
         border-right: 1px solid;
     }
 
-#module-name {
-    font-weight: bold;
-    font-size: 26pt;
-    display: table;
-    padding-top: 8px;
-    margin-left: 150px;
-    color:rebeccapurple;
-}
+
 #chapter-list{
     margin-left:100px;
 }
@@ -152,42 +275,9 @@ div {
     float: left;
     width: 1275px;
 }
-    #section-list .section-item {
-        float: left;
-        border: 1px solid;
-        border-radius: 10px;
-        margin-top: 10px;
-        padding: 5px 15px;
-        margin-right: 10px;
-        cursor: pointer;
-        text-transform: uppercase;
-        border: 4px outset white;
-        background-color:purple;
-        font-weight:bold;
-        color:white;
-    }
-    #section-list .selected {
-        border:4px inset purple;
-        color:purple;
-        background-color:white;
-    }
-    #chapter-list .chapter-item {
-        float: left;
-        margin-top: 10px;
-        padding: 11px 20px 9px;
-        margin-right: 10px;
-        cursor: pointer;
-        background-color: pink;
-        color: white;
-        font-size: 10pt;
-        font-weight: bold;
-        text-transform: lowercase;
-        border-radius: 10px 10px 0 0;
-    }
-    #chapter-list .selected {
-        background-color:white;
-        color:purple;
-    }
+    
+
+    
 
 #menu-open {
     float: left;
@@ -273,12 +363,7 @@ div {
     border-top:1px solid black
 }
 
-#header {
-    top: 0;
-    left: 0;
-    background-color: mediumpurple;
-    height: 135px;
-}
+
 
     #header #top-bar, #sections, #chapters {
         width: 100%;
@@ -291,11 +376,11 @@ div {
     }
 
     #header #sections {
-        /*background-color: orange;*/
+
     }
 
     #header #chapters {
-        /*background-color: pink;*/
+
     }
 
 
@@ -331,22 +416,21 @@ div {
     float: left;
     border: 1px solid;
     width: 30px;
-    height: 30px;
+    height: 25px;
     border: none;
     text-align: center;
     padding-top: 20px;
     font-weight: bold;
     text-align: center;
     cursor:pointer;
-    margin-top:-17px;
+    margin-top:-18px;
 }
-#page-dots #page-dot-content .dot:hover{
-    background-color:white;
-    color:purple;
-}
+
+    #page-dots #page-dot-content .dot.selected:hover {
+        margin-top: -18px;
+    }
 #page-dots #page-dot-content .dot.leftborder {border-left:1px solid black;}
 
-#page-dots #page-dot-content .dot.selected{background-color:purple;color:white;}
 
 
 
@@ -354,12 +438,12 @@ div {
 
 
 
-#arrow-bar{
-    display:table;
-    margin:0 auto;
-    background:purple;
-    height:15px;
-    width:100%;
+
+
+    #arrow-bar #arrow-pointer{
+        width:30px;
+        margin-top:-1px;
+        padding-left:1px;
 }
 #section-dots {
     display: table;

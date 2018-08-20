@@ -52,11 +52,10 @@ function secondInit() {
     setTimeout(function () {
         updateLoadingText('');
         $("#loading").hide();
-        $("#offline-load").css('display', 'none');
         $("#main-window").css('display', 'table');
 
         // find the first page, and load it
-    //  eventually: check if they left off somewhere
+        //  eventually: check if they left off somewhere
         loadPage();
     }, 1000);
 

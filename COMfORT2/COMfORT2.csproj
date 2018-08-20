@@ -106,6 +106,7 @@
     <Content Include="Content\images\back-arrow.png" />
     <Content Include="Content\images\forward-arrow.png" />
     <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\page.png" />
     <Content Include="Content\images\ultrasound.jpg" />
     <Content Include="Content\js\base.js" />
     <Content Include="Content\js\jquery-3.3.1.min.js" />
