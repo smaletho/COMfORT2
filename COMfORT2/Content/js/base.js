@@ -46,6 +46,7 @@ function secondInit() {
     updateLoadingText("Building content");
     buildTableOfContents();
     initTocLinks();
+    initTracking();
 
     updateLoadingText('Done!');
     setTimeout(function () {

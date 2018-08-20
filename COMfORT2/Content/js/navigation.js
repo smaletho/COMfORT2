@@ -93,7 +93,7 @@ function loadPage(id, type) {
 
         var previousLocation = CurrentLocation;
         CurrentLocation = targetPage;
-        console.log(CurrentLocation);
+        addUserNavigation(previousLocation, CurrentLocation, "")
 
         closeNav();
         updateNavigation(previousLocation);
@@ -139,18 +139,16 @@ function updateNavigation(previousLocation) {
             
             $("#section-list").empty();
 
-            $("#page-dot-content").empty();
+            $("#dot-container").empty();
         }
         if (previousLocation.Section != CurrentLocation.Section) {
             // changing sections
             $("#chapter-list").empty();
-            $("#page-dot-content").empty();
 
             // get all chapters for this section
             $(".section-item").removeClass("selected");
         } if (previousLocation.Chapter != CurrentLocation.Chapter) {
             // changing chapters
-            $("#page-dot-content").empty();
             
             $(".chapter-item").removeClass("selected");
         }
@@ -205,26 +203,6 @@ function updateTableOfContents() {
     $(".plusMinus[data-id='" + CurrentLocation.Section + "']").addClass("activePlusMinus");
     $(".plusMinus[data-id='" + CurrentLocation.Module + "']").addClass("activePlusMinus");
     
-
-    // highlight the active chapter in TOC
-    //$("#pageList .chapter").removeClass('activeChapter');
-    //$(ch_page).addClass('activeChapter');
-
-    //// find the page number within the chapter
-    //var parentChapter = $(ConfigXml).find("#" + CurrentLocation.Page).parent("chapter");
-    //var chapterChildren = $(parentChapter).children("page").map(function () { return this.id }).get();
-
-    //// update the page number
-    //var page = 0;
-    //for (var i = 0; i < chapterChildren.length; i++) {
-    //    if (chapterChildren[i] == CurrentLocation.Page) {
-    //        page = i + 1;
-    //        break;
-    //    }
-    //}
-
-    //var ch_page = $("#pageList").find('.chapter[data-id=' + $(parentChapter).prop('id') + "]").first();
-    //$(ch_page).find(".pageCounter").first().text(page + "/" + chapterChildren.length);
 }
 
 function populateMenus() {
@@ -236,8 +214,8 @@ function populateMenus() {
         var fontColor = mod[0].attributes.fontcolor.value;
 
         $("#module-name").html(name);
-        $("#top-bar").css('background-color', color);
-        $("#module-name").css('color', fontColor);
+        //$("#top-bar").css('background-color', color);
+        //$("#module-name").css('color', fontColor);
     }
 
     // check if there's anything in the box
@@ -283,19 +261,32 @@ function populateMenus() {
     }
 
     // check if the page dots are there
-    if ($("#page-dot-content").is(':empty')) {
-        // get all pages in this chapter
-        var chapter = $(ConfigXml).find("#" + CurrentLocation.Chapter).first();
-        var arr = $(chapter).find("page").map(function () {
-            return this.attributes.id.value;
-        }).get();
+    if ($("#dot-container").is(':empty')) {
+        // get all pages in this module
+        var mod = $(ConfigXml).find("#" + CurrentLocation.Module).first();
 
-        for (var i = 0; i < arr.length; i++) {
-            //create a dot, and number it.
-            var dot = $("<div data-page='" + arr[i] + "' class='dot'></div>");
-            $(dot).html(i + 1);
-            $("#page-dot-content").append(dot);
-        }
+        var currentSection = "";
+        $(mod).find("page").each(function (k, v) {
+            var dot = $("<div data-page='" + this.attributes.id.value + "' class='dot'></div>");
+            $(dot).html(k + 1);
+            if ($(this).closest("section").prop("id") != currentSection) {
+                $(dot).addClass('leftborder');
+                currentSection = $(this).closest("section").prop('id');
+            }
+            $("#dot-container").append(dot);
+        });
+
+        
+        $(mod).find("section").each(function (k, v) {
+            var sec = $("<div data-id='" + this.attributes.id.value + "' class='dot-sect'></div>");
+            $(sec).html("section " + (k + 1));
+
+            var numChild = $(this).find("page").length;
+            var wid = numChild * 30;
+
+            $(sec).width(wid);
+            $("#section-dots").append(sec);
+        });
     }
 }
 

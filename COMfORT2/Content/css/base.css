@@ -136,17 +136,19 @@ div {
     }
 
 #module-name {
-    color: rgb(255, 255, 255);
     font-weight: bold;
-    font-size: 18pt;
-    text-transform: uppercase;
+    font-size: 26pt;
     display: table;
-    margin: 0 auto;
     padding-top: 8px;
+    margin-left: 150px;
+    color:rebeccapurple;
 }
-#section-list, #chapter-list {
+#chapter-list{
+    margin-left:100px;
+}
+#section-list{
     height: 45px;
-    margin-left: 200px;
+    margin-left: 150px;
     float: left;
     width: 1275px;
 }
@@ -154,24 +156,37 @@ div {
         float: left;
         border: 1px solid;
         border-radius: 10px;
-        margin-top: 7px;
+        margin-top: 10px;
         padding: 5px 15px;
         margin-right: 10px;
         cursor: pointer;
+        text-transform: uppercase;
+        border: 4px outset white;
+        background-color:purple;
+        font-weight:bold;
+        color:white;
     }
     #section-list .selected {
+        border:4px inset purple;
+        color:purple;
         background-color:white;
     }
     #chapter-list .chapter-item {
         float: left;
-        margin-top: 7px;
-        padding: 5px 15px;
+        margin-top: 10px;
+        padding: 11px 20px 9px;
         margin-right: 10px;
         cursor: pointer;
-        text-decoration:underline;
+        background-color: pink;
+        color: white;
+        font-size: 10pt;
+        font-weight: bold;
+        text-transform: lowercase;
+        border-radius: 10px 10px 0 0;
     }
     #chapter-list .selected {
-        color: green;
+        background-color:white;
+        color:purple;
     }
 
 #menu-open {
@@ -247,21 +262,21 @@ div {
 
 #header, #footer {
     width: 100%;
-    overflow: auto;
     position: absolute
 }
 
 #footer {
     bottom: 0;
     left: 0;
-    background-color:silver;
-    height: 45px;
+    background-color:white;
+    height: 85px;
+    border-top:1px solid black
 }
 
 #header {
     top: 0;
     left: 0;
-    background-color: green;
+    background-color: mediumpurple;
     height: 135px;
 }
 
@@ -271,69 +286,93 @@ div {
     }
 
     #header #top-bar {
-        background-color: red;
+        background-color: white;
+        color: black;
     }
 
     #header #sections {
-        background-color: orange;
+        /*background-color: orange;*/
     }
 
     #header #chapters {
-        background-color: pink;
+        /*background-color: pink;*/
     }
 
 
 
-#previous-button,#next-button,#page-dots{height:35px;float:left;}
-#next-button, #previous-button {
-    color: white;
-    width: 180px;
-    cursor: pointer;
-    font-size: 18pt;
-    text-align: center;
-    padding-top: 10px;
-    font-weight: bold;
+#previous-button, #next-button, #page-dots {
+    height: 55px;
+    float: left;
+    margin-top:15px;
 }
+
+#next-button, #previous-button {
+    cursor: pointer;
+}
+    #next-button, #previous-button:active{
+        
+    }
 #previous-button {
-    background-color:blue;
-    border-top-right-radius:10px;
-    border-bottom-right-radius:10px;
+    margin-left:20px;
 }
 #next-button {
-    background-color: green;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+   
 }
-#page-dots{width:1240px;}
-#page-dot-content{display:table;margin:0 auto;height:35px;}
+
+
+
+
+
+#page-dots{width:1440px;padding:5px;}
+#page-dot-content{
+    display:table;margin:0 auto;border-right:1px solid black;
+}
 #page-dots #page-dot-content .dot {
     float: left;
     border: 1px solid;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    width: 30px;
+    height: 30px;
+    border: none;
     text-align: center;
-    padding-top: 5px;
-    margin-right: 10px;
-    margin-top: 5px;
-    font-weight:bold;
+    padding-top: 20px;
+    font-weight: bold;
+    text-align: center;
+    cursor:pointer;
+    margin-top:-17px;
 }
+#page-dots #page-dot-content .dot:hover{
+    background-color:white;
+    color:purple;
+}
+#page-dots #page-dot-content .dot.leftborder {border-left:1px solid black;}
 
-#page-dot-content .dot.selected{background-color:white;}
+#page-dots #page-dot-content .dot.selected{background-color:purple;color:white;}
 
-#progress-container {
-    height: 5px;
-    width: 98%;
-    border: 1px solid red;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+
+
+
+
+
+
+#arrow-bar{
+    display:table;
+    margin:0 auto;
+    background:purple;
+    height:15px;
+    width:100%;
+}
+#section-dots {
     display: table;
-    margin: 3px auto 0;
+    margin: 0 auto;
+    height: 15px;
+    width: 100%;
 }
 
-#progress-bar{
-    height:5px;
-    background-color:red;
+.dot-sect{
+    float:left;
+    text-align:center;
+    border-left:1px solid black;
+    border-top:1px solid black;
 }
 
 #definitionWindow {

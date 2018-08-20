@@ -148,7 +148,7 @@ namespace COMfORT2.Controllers
                 case "page":
                     Page page = new Page();
                     page.Create("tsmale@rktcreative.com");
-
+                    page.PageContent = element.OuterXml.Trim();
                     page.Type = element.Attributes["type"].Value;
                     cdb.Pages.Add(page);
                     cdb.SaveChanges();

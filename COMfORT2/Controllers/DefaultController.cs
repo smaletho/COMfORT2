@@ -55,7 +55,6 @@ namespace COMfORT2.Controllers
 
             string configFile1 = Server.MapPath("~/ZipDump/1config_" + dt + ".js");
             string configFile2 = Server.MapPath("~/ZipDump/2config_" + dt + ".js");
-            string configFile3 = Server.MapPath("~/ZipDump/3config_" + dt + ".js");
             string homeFile = Server.MapPath("~/ZipDump/index.html");
 
             using (ZipFile zip = new ZipFile())
@@ -101,10 +100,16 @@ namespace COMfORT2.Controllers
                     //  with <script src="~/js/shared.js"></script>
                     text = text.Replace("<script src=\"~/Content/js/shared.js\"></script>", "<script src=\"./js/shared.js\"></script>");
 
+                    // replace <script src="~/Content/js/userTrack.js"></script>
+                    //  with <script src="~/js/userTrack.js"></script>
+                    text = text.Replace("<script src=\"~/Content/js/userTrack.js\"></script>", "<script src=\"./js/userTrack.js\"></script>");
+
                     // ---- Special case: replace offline.js with both config files (created next)
                     // replace <script src="~/Content/js/offline.js"></script>
                     //  with <script src="~/js/offline.js"></script><script src="~/js/config1.js"></script><script src="~/js/config2.js"></script>
-                    text = text.Replace("<script src=\"~/Content/js/offline.js\"></script>", "<script src=\"./js/offline.js\"></script><script src=\"./config1.js\"></script><script src=\"./config2.js\"></script></script><script src=\"./config3.js\"></script>");
+
+
+                    text = text.Replace("<script src=\"~/Content/js/offline.js\"></script>", "<script src=\"./js/offline.js\"></script><script src=\"./js/config1.js\"></script><script src=\"./js/config2.js\"></script>");
 
 
                     // replace loading image
@@ -122,50 +127,40 @@ namespace COMfORT2.Controllers
                     tw.Write(model.ConfigXml.OuterXml);
                     tw.Write("`);");
                     
-                    zip.AddFile(configFile1).FileName = "/config1.js";
+                    zip.AddFile(configFile1).FileName = "/js/config1.js";
                 }
 
                 using (var tw = new StreamWriter(configFile2, true))
                 {
                     // create the config file
                     tw.Write("var offline_PageContents = `");
-
+                    
                     var jsonSerialiser = new JavaScriptSerializer();
                     var json = jsonSerialiser.Serialize(model.PageContent);
 
                     tw.Write(json);
                     tw.Write("`;");
 
-                    zip.AddFile(configFile2).FileName = "/config2.js";
+                    tw.WriteLine(Environment.NewLine);
+                    tw.WriteLine("var offline_PageGuts = [];");
+
+                    tw.WriteLine(Environment.NewLine);
+                    tw.WriteLine(Environment.NewLine);
+                    tw.WriteLine("function loadGuts() {");
+
+                    foreach (var page in contentLs)
+                    {
+                        tw.WriteLine("offline_PageGuts.push(`" + page + "`);");
+                    }
+
+                    tw.WriteLine("}");
+
+                    zip.AddFile(configFile2).FileName = "/js/config2.js";
                 }
+                
 
-                using (var tw = new StreamWriter(configFile3, true))
-                {
-                    // create the config file
-                    tw.Write("var offline_PageGuts = `");
 
-                    var jsonSerialiser = new JavaScriptSerializer();
-                    var json = jsonSerialiser.Serialize(contentLs);
-
-                    Encoding ascii = Encoding.ASCII;
-                    Encoding unicode = Encoding.Unicode;
-
-                    // Convert the string into a byte array.
-                    byte[] unicodeBytes = unicode.GetBytes(json);
-
-                    // Perform the conversion from one encoding to the other.
-                    byte[] asciiBytes = Encoding.Convert(unicode, ascii, unicodeBytes);
-
-                    // Convert the new byte[] into a char[] and then into a string.
-                    char[] asciiChars = new char[ascii.GetCharCount(asciiBytes, 0, asciiBytes.Length)];
-                    ascii.GetChars(asciiBytes, 0, asciiBytes.Length, asciiChars, 0);
-                    string asciiString = new string(asciiChars);
-
-                    tw.Write(asciiString);
-                    tw.Write("`;");
-
-                    zip.AddFile(configFile3).FileName = "/config3.js";
-                }
+                
 
 
                 zip.Save(fullFileName);

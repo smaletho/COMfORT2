@@ -103,6 +103,8 @@
   <ItemGroup>
     <Content Include="Content\css\base.css" />
     <Content Include="Content\css\pageContent.css" />
+    <Content Include="Content\images\back-arrow.png" />
+    <Content Include="Content\images\forward-arrow.png" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\ultrasound.jpg" />
     <Content Include="Content\js\base.js" />
@@ -111,13 +113,13 @@
     <Content Include="Content\js\navigation.js" />
     <Content Include="Content\js\offline.js" />
     <Content Include="Content\js\shared.js" />
+    <Content Include="Content\js\userTrack.js" />
     <Content Include="Content\js\validate.js" />
     <Content Include="Content\js\viewer.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="comfort.zip" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -142,7 +144,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\View\UploadFile.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
