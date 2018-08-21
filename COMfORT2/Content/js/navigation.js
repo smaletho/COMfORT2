@@ -232,8 +232,6 @@ function populateMenus() {
     if ($("#module-name").html() === "") {
         
         var name = mod[0].attributes.name.value;
-        //var color = mod[0].attributes.maincolor.value;
-        //var fontColor = mod[0].attributes.fontcolor.value;
 
         $("#module-name").html(name);
         $("#inner-window").removeClass();

@@ -59,8 +59,6 @@ namespace COMfORT2
         
         public int SortOrder { get; set; }
         public string Name { get; set; }
-        public string MainColor { get; set; }
-        public string FontColor { get; set; }
         public string Theme { get; set; }
 
         public int BookId { get; set; }

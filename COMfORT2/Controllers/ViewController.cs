@@ -103,8 +103,6 @@ namespace COMfORT2.Controllers
                 case "module":
                     Module module = new Module();
                     module.BookId = bookId;
-                    module.FontColor = element.Attributes["fontcolor"].Value;
-                    module.MainColor = element.Attributes["maincolor"].Value;
                     module.Name = element.Attributes["name"].Value;
 
                     module.SortOrder = m_sortCount;
@@ -239,8 +237,6 @@ namespace COMfORT2.Controllers
                 {
                     XmlElement mod = this.ConfigXml.CreateElement("module");
                     mod.SetAttribute("name", m.Name);
-                    mod.SetAttribute("maincolor", m.MainColor);
-                    mod.SetAttribute("fontcolor", m.FontColor);
                     mod.SetAttribute("theme", m.Theme);
                     mod.SetAttribute("id", "m_" + moduleCount);
                     
