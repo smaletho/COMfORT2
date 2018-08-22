@@ -106,7 +106,8 @@ function loadPage(id, type) {
         $(targetPage.content).contents().each(function recursivePageLoad() {
 
             if (!blankTextNode(this)) {
-                var innerPage = $(this).html().trim();
+                //var innerPage = $(this).html().trim();
+                var innerPage = $.trim(this.textContent);
 
                 if (innerPage.indexOf('<text>') === -1 && innerPage.indexOf('</text>') === -1) {
                     // this is a normal, empty node

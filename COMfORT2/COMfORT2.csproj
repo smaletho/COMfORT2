@@ -103,6 +103,7 @@
   <ItemGroup>
     <Content Include="Content\css\base.css" />
     <Content Include="Content\css\pageContent.css" />
+    <Content Include="Content\css\viewer.css" />
     <Content Include="Content\images\back-arrow.png" />
     <Content Include="Content\images\forward-arrow.png" />
     <Content Include="Content\images\loading.gif" />
@@ -151,6 +152,7 @@
     <Content Include="Views\View\UploadFile.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Default\ZipTest.cshtml" />
+    <Content Include="Views\View\Shell.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

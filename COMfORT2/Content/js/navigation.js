@@ -16,6 +16,15 @@
         var id = $(this).data('page');
         loadPage(id, "page");
     });
+    $(document).keydown(function (event) {
+        if (event.which == 39) {
+            // going forwards
+            nextPage();
+        } else if (event.which == 37) {
+            // going backwards
+            previousPage();
+        }
+    });
 }
 
 function unbindNavigation() {
@@ -24,6 +33,7 @@ function unbindNavigation() {
     $(".chapter-item").unbind();
     $(".section-item").unbind();
     $(".dot").unbind();
+    $(document).unbind();
 }
 
 
@@ -106,7 +116,8 @@ function loadPage(id, type) {
         $(targetPage.content).contents().each(function recursivePageLoad() {
 
             if (!blankTextNode(this)) {
-                var innerPage = $(this).html().trim();
+                //var innerPage = $(this).html().trim();
+                var innerPage = $.trim(this.textContent);
 
                 if (innerPage.indexOf('<text>') === -1 && innerPage.indexOf('</text>') === -1) {
                     // this is a normal, empty node

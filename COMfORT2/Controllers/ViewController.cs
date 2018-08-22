@@ -22,7 +22,7 @@ namespace COMfORT2.Controllers
         // GET: View
         public ActionResult UploadFile()
         {
-            return View(new IndexModel());
+            return View(new PageViewModel());
         }
 
         [HttpPost]
@@ -181,11 +181,66 @@ namespace COMfORT2.Controllers
 
 
 
+
+
+
+        public ActionResult Shell(PageViewModel model)
+        {
+            return View("Shell", model);
+        }
+
+        [HttpPost] public ActionResult ReadPage(PageViewModel model)
+        {
+            try
+            {
+                HttpPostedFileBase file = Request.Files[0];
+
+                BinaryReader b = new BinaryReader(file.InputStream);
+                byte[] binData = b.ReadBytes(file.ContentLength);
+                
+                string fileContentText = System.Text.Encoding.UTF8.GetString(binData);
+
+                XmlDocument xml = new XmlDocument();
+                try
+                {
+                    xml.LoadXml(fileContentText);
+                }
+                catch (Exception e)
+                {
+                    return Content("bad xml     " + e.InnerException.Message);
+                }
+
+                model.XmlContent = xml.FirstChild.OuterXml;
+
+
+
+                return Shell(model);
+                //return RedirectToAction("Shell", new { model });
+            }
+            catch
+            {
+                return Content("fail");
+            }
+
+        }
+
+
+
+
         public class IndexModel
         {
             [Required, FileExtensions(Extensions = "xml",
              ErrorMessage = "Specify an XML file.")]
             public HttpPostedFileBase File { get; set; }
+        }
+
+        public class PageViewModel
+        {
+            [Required, FileExtensions(Extensions = "xml",
+                         ErrorMessage = "Specify an XML file.")]
+            public HttpPostedFileBase File { get; set; }
+
+            public string XmlContent { get; set; }
         }
 
         public class BookModel

@@ -104,7 +104,8 @@ function textNode(element) {
     var newNode = $("<div></div>");
     $(newNode).addClass("item");
     $(newNode).addClass('inner-text');
-    $(newNode).html($(element).html().trim());
+    $(newNode).html($.trim(element.textContent))
+    //$(newNode).html($(element).html().trim());
 
     return newNode;
 }
