@@ -244,7 +244,7 @@ function populateMenus() {
         
         var name = mod[0].attributes.name.value;
         var bookName = $(ConfigXml).find(":root").first();
-        $("#book-name").html(bookName[0].attributes.name.value + ": ");
+        $("#book-name").html(bookName[0].attributes.name.value);
         $("#module-name").html(name);
         $("#inner-window").removeClass();
         $("#inner-window").addClass("theme" + mod[0].attributes.theme.value);

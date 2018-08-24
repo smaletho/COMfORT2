@@ -43,6 +43,7 @@ function gotBookInfo(data) {
 
 function fail_BookInfo(data) {
     console.log('fail', data);
+    updateLoadingText("Failed to load :(")
 }
 
 function secondInit() {

@@ -103,6 +103,7 @@
   <ItemGroup>
     <Content Include="Content\css\base.css" />
     <Content Include="Content\css\pageContent.css" />
+    <Content Include="Content\css\themes.css" />
     <Content Include="Content\css\viewer.css" />
     <Content Include="Content\images\back-arrow.png" />
     <Content Include="Content\images\forward-arrow.png" />
@@ -110,6 +111,7 @@
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\page.png" />
     <Content Include="Content\images\right-mask.png" />
+    <Content Include="Content\images\small-back.png" />
     <Content Include="Content\images\ultrasound.jpg" />
     <Content Include="Content\js\base.js" />
     <Content Include="Content\js\jquery-3.3.1.min.js" />
