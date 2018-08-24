@@ -1,0 +1,62 @@
+﻿@model COMfORT2.Controllers.ViewController.PageViewModel
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>COMfORT 2 - Viewer</title>
+    <!--stylesheets-->
+    <link href="~/Content/css/base.css" rel="stylesheet" />
+    <link href="~/Content/css/pageContent.css" rel="stylesheet" />
+
+    <!--scripts-->
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script>
+        var ConfigXml;
+        var PageContent = [];
+        var ScaleRatio = 1;
+        var CurrentLocation;
+        var xml = $.parseXML(`@Html.Raw(Model.XmlContent)`);
+    </script>
+    <script src="~/Content/js/viewer.js"></script>
+    <script src="~/Content/js/navigation.js"></script>
+    <script src="~/Content/js/base.js"></script>
+    <script src="~/Content/js/loading.js"></script>
+    <script src="~/Content/js/shared.js"></script>
+    <script src="~/Content/js/validate.js"></script>
+    <!-- For offline switch the src for each script, and include offline.js -->
+</head>
+
+<body>
+    <div id="main-window">
+        <div id="top-bar">
+
+        </div>
+
+        <div id="content">
+            <div id="header">
+                <div id="top-bar">
+                    @using (Html.BeginForm("ReadPage", "View", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.TextBoxFor(m => m.File, new { type = "file" })
+                        @Html.ValidationMessageFor(m => m.File)
+                        <button type="submit">submit</button>
+                    }
+                </div>
+                <div id="sections">
+                    <div id="section-list"></div>
+                </div>
+                <div id="chapters">
+                    <div id="chapter-list"></div>
+                </div>
+            </div>
+
+            <div id="page-content" style="border:1px solid black;">
+                <div id="definitionWindow"></div>
+            </div>
+        </div>
+
+        <div id="bottom-bar"></div>
+    </div>
+</body>
+</html>

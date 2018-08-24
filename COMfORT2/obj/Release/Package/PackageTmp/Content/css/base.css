@@ -315,14 +315,17 @@
 
 
 
+#module-head #book-name{
+    font-weight:normal;
+    font-size:20pt;
+}
 
-
-#module-name {
+#module-head {
     color: black;
     font-weight: bold;
-    font-size: 26pt;
+    font-size: 34pt;
     display: table;
-    padding-top: 8px;
+    /*padding-top: 2px;*/
     margin-left: 150px;
 }
 
@@ -639,7 +642,6 @@ div {
     left: 0;
     background-color:white;
     height: 85px;
-    border-top:1px solid black
 }
 
 

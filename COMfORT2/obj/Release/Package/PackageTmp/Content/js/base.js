@@ -13,6 +13,9 @@ $(function () {
     if (location.hostname == "") {
         // when this function finishes, it will call the remaining init
         offlineLoadInit();
+    } else if (location.pathname.indexOf("ReadPage") != -1) {
+        // using the page viewer.
+        viewerInit();
     } else {
         //load the book
         $("#loading").show();

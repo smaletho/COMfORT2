@@ -243,7 +243,8 @@ function populateMenus() {
     if ($("#module-name").html() === "") {
         
         var name = mod[0].attributes.name.value;
-
+        var bookName = $(ConfigXml).find(":root").first();
+        $("#book-name").html(bookName[0].attributes.name.value + ": ");
         $("#module-name").html(name);
         $("#inner-window").removeClass();
         $("#inner-window").addClass("theme" + mod[0].attributes.theme.value);
@@ -307,17 +308,26 @@ function populateMenus() {
             $("#dot-container").append(dot);
         });
 
+        $("#dot-container").find('.dot').last().addClass('rightborder');
+
+        //$("#section-content").empty();
+        //$(mod).find("section").each(function (k, v) {
+        //    var sec = $("<div data-id='" + this.attributes.id.value + "' class='dot-sect'></div>");
+        //    $(sec).html("section " + (k + 1));
+
+        //    var numChild = $(this).find("page").length;
+        //    var wid = (numChild * 30) - 1;
+
+        //    $(sec).width(wid);
+        //    $("#section-content").append(sec);
+        //});
         
-        $(mod).find("section").each(function (k, v) {
-            var sec = $("<div data-id='" + this.attributes.id.value + "' class='dot-sect'></div>");
-            $(sec).html("section " + (k + 1));
-
-            var numChild = $(this).find("page").length;
-            var wid = numChild * 30;
-
-            $(sec).width(wid);
-            $("#section-dots").append(sec);
-        });
+        var pageLen = ($(".dot").length * 30) + 2;
+        $("#arrow-content").width(pageLen);
+        //$("#section-content").width(pageLen);
+        ////$("#arrow-bar").width(pageLen * 30);
     }
+
+
 }
 

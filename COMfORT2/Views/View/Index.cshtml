@@ -47,7 +47,18 @@
                 <div id="header">
                     <div id="top-bar">
                         <div id="menu-open">&lt; MENU</div>
-                        <div id="module-name"></div>
+                        <div id="module-head">
+                            <div id="color-block">
+                                <div id="dark-box">
+                                    <img src="~/Content/images/left-mask.png" width="20" height="40"/>
+                                </div>
+                                <div id="light-box">
+                                    <img src="~/Content/images/right-mask.png"  width="20" height="40"/>
+                                </div>
+                            </div>
+                            <span id="book-name"></span>
+                            <span id="module-name"></span>
+                        </div>
                     </div>
                     <div id="sections">
                         <div id="section-list"></div>
@@ -65,10 +76,55 @@
             </div>
 
             <div id="footer">
-                <div></div>
-                <img id="previous-button" src="~/Content/images/back-arrow.png" />
 
-                <div id="page-dots">
+                <div class="foot-float">
+                    @*<div class="section-bar"></div>*@
+                    <img id="previous-button" src="~/Content/images/back-arrow.png" />
+                </div>
+
+                <div class="foot-float">
+                    @*<div id="section-dots" class="section-bar">
+                        <div id="section-content"></div>
+                    </div>*@
+                    <div id="arrow-bar">
+                        <div id="arrow-content">
+                            <img id="arrow-pointer" src="~/Content/images/page.png" />
+                        </div>
+                    </div>
+                    <div id="page-dot-content">
+                        <div id="dot-container"></div>
+                    </div>
+                </div>
+
+                <div class="foot-float">
+                    @*<div class="section-bar"></div>*@
+                    <img id="next-button" src="~/Content/images/forward-arrow.png" />
+                </div>
+
+
+
+
+
+
+
+
+
+
+                @*<div id="section-bar">
+                    <div id="section-dots"></div>
+                </div>
+
+                <div id="lower-footer">
+                    <img id="previous-button" src="~/Content/images/back-arrow.png" />
+                    <div id="page-dots">
+                        <div id="dot-container"></div>
+                    </div>
+                    <img id="next-button" src="~/Content/images/forward-arrow.png" />
+                </div>*@
+
+                
+
+                @*<div id="page-dots">
 
                     <div id="page-dot-content">
                         <div id="section-dots"></div>
@@ -78,7 +134,7 @@
                         <div id="dot-container"></div>
                     </div>
                 </div>
-                <img id="next-button" src="~/Content/images/forward-arrow.png" />
+                <img id="next-button" src="~/Content/images/forward-arrow.png" />*@
 
             </div>
         </div>
