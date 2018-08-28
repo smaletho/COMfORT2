@@ -1,4 +1,6 @@
-
+#asset-window{
+    
+}
 
 
 
@@ -175,6 +177,9 @@ html {
         position: relative;
         cursor: pointer;
         padding: 10px;
+        /*TODO: this isn't right*/
+        overflow:hidden;
+        background-color:white;
     }
 
         #toc #pageList .nav-link:hover {
@@ -183,6 +188,8 @@ html {
         }
 
         #toc #pageList .nav-link .text {
+            margin-top: 10px;
+            margin-left: 55px;
         }
 
         #toc #pageList .nav-link .plusMinus {
@@ -385,7 +392,7 @@ html {
 #module-name{
     font-weight:800;
 }
-#module-head #book-name, #color-block, #module-name {
+#module-head #book-name, .color-block, #module-name {
     font-size: 30pt;
     float:left;
 }
@@ -397,28 +404,28 @@ html {
     /*padding-top: 2px;*/
     margin-left: 150px;
 }
-#color-block{
+.color-block{
     height:40px;
     width:40px;
     margin-top:3px;
 }
-#dark-box, #light-box{
+.dark-box, .light-box{
     width:20px;height:40px;float:left;
 }
-#dark-box {
+.dark-box {
     background-color:black;
 }
-    #dark-box img {
+    .dark-box img {
         margin-top:-1px;
         margin-left:-1px;
         height:42px;
         width:21px;
     }
 
-#light-box {
+.light-box {
     background-color:gray;
 }
-    #light-box img {
+    .light-box img {
         height: 42px;
         margin-top: -1px;
         width: 21px;

@@ -76,6 +76,12 @@ C:\Users\smale\source\repos\COMfORT2\COMfORT2\obj\Debug\COMfORT2.pdb
 C:\Users\smale\source\repos\COMfORT2\COMfORT2\bin\System.IO.Compression.dll
 C:\Users\smale\source\repos\COMfORT2\COMfORT2\bin\DotNetZip.dll
 C:\Users\smale\source\repos\COMfORT2\COMfORT2\bin\DotNetZip.xml
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.IO.Compression.dll
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\VBCSCompiler.exe
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\COMfORT2.dll.config
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\COMfORT2.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\COMfORT2.pdb
@@ -86,13 +92,9 @@ C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\csi.exe
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\csi.exe.config
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\csi.rsp
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\Microsoft.Win32.Primitives.dll
@@ -102,7 +104,6 @@ C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.Console.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.Diagnostics.Process.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.Diagnostics.StackTrace.dll
-C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.IO.Compression.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.IO.FileSystem.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.IO.FileSystem.Primitives.dll
@@ -125,7 +126,6 @@ C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\System.Xml.XPath.XDocument.d
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\vbc.exe
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\vbc.exe.config
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\vbc.rsp
-C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\VBCSCompiler.exe
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\DotNetZip.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\EntityFramework.dll
@@ -149,8 +149,10 @@ C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\System.Web.Webpages.Deployment.xml
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\System.Web.Webpages.Razor.xml
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\System.Web.Helpers.xml
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\bin\System.Web.Mvc.xml
-C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Debug\COMfORT2.csprojResolveAssemblyReference.cache
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Debug\COMfORT2.Migrations.Files.resources
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Debug\COMfORT2.csproj.GenerateResource.cache
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Debug\COMfORT2.csproj.CoreCompileInputs.cache
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Debug\COMfORT2.csproj.CopyComplete
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Debug\COMfORT2.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Debug\COMfORT2.pdb
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Debug\COMfORT2.csprojResolveAssemblyReference.cache

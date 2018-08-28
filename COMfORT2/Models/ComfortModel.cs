@@ -1,6 +1,7 @@
 namespace COMfORT2
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
     using System.Linq;
 
@@ -25,6 +26,20 @@ namespace COMfORT2
         public virtual DbSet<Chapter> Chapters { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<BookPage> BookPages { get; set; }
+        public virtual DbSet<File> Files { get; set; }
+    }
+
+    public class File
+    {
+        public int FileId { get; set; }
+        [StringLength(255)]
+        public string FileName { get; set; }
+        [StringLength(100)]
+        public string ContentType { get; set; }
+        public byte[] Content { get; set; }
+        public FileType FileType { get; set; }
+
+        public int PageId { get; set; }
     }
 
     public class Book

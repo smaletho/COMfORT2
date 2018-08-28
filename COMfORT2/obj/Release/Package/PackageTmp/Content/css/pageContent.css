@@ -18,3 +18,19 @@
         font-size: 18pt;
         font-weight: bold;
     }
+
+    #page-content button {
+        outline: none;
+        cursor: pointer;
+        padding: 10px 30px;
+        color: white;
+        background-color: black;
+        border: 4px outset gray;
+        border-radius: 10px;
+    }
+
+        #page-content button:active {
+            border: 4px inset black;
+            color: black;
+            background-color: gray;
+        }

@@ -1,0 +1,29 @@
+﻿@model COMfORT2.Controllers.AssetModel
+
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>Assets for PageId: @Model.PageId</h1>
+
+        <ul>
+            @foreach (var file in Model.FileList)
+            {
+                <li>
+                    <span>@file.FileId: @file.FileName</span>
+                    <a href="javascript:void(0)">edit</a>
+                </li>
+            }
+        </ul>
+
+        <div style="margin:0 auto;display:table">
+            @using (Html.BeginForm("UploadAsset", "Build", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.TextBoxFor(m => m.UploadedFile, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.UploadedFile)
+                <button type="submit">upload</button>
+            }
+        </div>
+    </body>
+</html>
+

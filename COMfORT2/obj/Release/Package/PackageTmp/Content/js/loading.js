@@ -38,17 +38,20 @@ function renderElement(element) {
         case "image":
             newNode = imageNode(element);
             break;
+        case "button":
+            newNode = buttonNode(element);
+            break;
     }
 
 
     for (var i = 0; i < element.attributes.length; i++) {
         switch (element.attributes[i].nodeName.toLowerCase()) {
             case "position-x": {
-                $(newNode).css('left', element.attributes[i].value + "px")
+                $(newNode).css('left', element.attributes[i].value + "px");
                 break;
             }
             case "position-y": {
-                $(newNode).css('top', element.attributes[i].value + "px")
+                $(newNode).css('top', element.attributes[i].value + "px");
                 break;
             }
             case "width": {
@@ -76,10 +79,15 @@ function renderElement(element) {
                 break;
         }
     }
-
-
-
+    
     $("#page-content").append(newNode);
+}
+
+function buttonNode(element) {
+    var newNode = $("<button></button>");
+    $(newNode).addClass("item");
+    $(newNode).html($.trim(element.innerHTML));
+    return newNode;
 }
 
 function imageNode(element) {
@@ -89,7 +97,15 @@ function imageNode(element) {
     for (var i = 0; i < element.attributes.length; i++) {
         switch (element.attributes[i].nodeName.toLowerCase()) {
             case "source": {
-                $(newNode).prop('src', element.attributes[i].value);
+                // "i_{id}"
+                // find the associated file
+                var src = element.attributes[i].value;
+
+                // TODO: set up URL Content
+                var newSrc = URL_Content + "ImageManager.ashx?id=" + src;
+                
+
+                $(newNode).prop('src', newSrc);
                 break;
             }
             default:
@@ -100,11 +116,12 @@ function imageNode(element) {
 }
 
 
+
 function textNode(element) {
     var newNode = $("<div></div>");
     $(newNode).addClass("item");
     $(newNode).addClass('inner-text');
-    $(newNode).html($.trim(element.textContent))
+    $(newNode).html($.trim(element.innerHTML));
     //$(newNode).html($(element).html().trim());
 
     return newNode;

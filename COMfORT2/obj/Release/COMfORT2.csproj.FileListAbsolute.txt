@@ -76,3 +76,5 @@ C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Release\COMfORT2.csproj.CoreCompile
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Release\COMfORT2.csproj.CopyComplete
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Release\COMfORT2.dll
 C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Release\COMfORT2.pdb
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Release\COMfORT2.Migrations.Files.resources
+C:\Users\smale\Desktop\COMfORT2\COMfORT2\obj\Release\COMfORT2.csproj.GenerateResource.cache

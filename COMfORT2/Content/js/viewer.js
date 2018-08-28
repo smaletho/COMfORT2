@@ -2,6 +2,11 @@
 var resizeTimer;
 
 function viewerInit() {
+    $("#shell-assets").on('click', function () {
+        // get all assets with PageId == 0
+        window.open(URL_ViewAssets);
+    });
+
     // keep aspect ratio
     maintainAspectRatio();
 
@@ -13,6 +18,29 @@ function viewerInit() {
     });
 
     pageReceived_Render();
+
+    $("#submit-page").on('click', function () {
+        if (confirm("Would you like to save this page?")) {
+
+            //.item src
+            var arr = $(".item").map(function () { return $(this).prop('src'); }).get();
+
+            var s = new XMLSerializer();
+            var str = s.serializeToString(xml);
+
+            transmitAction(URL_SavePage, savePageSuccess, savePageFail, "", { xml: str, images: arr });
+        }
+    });
+}
+
+function savePageSuccess(data) {
+    alert("Page saved.");
+    window.location = URL_GoHome;
+}
+
+function savePageFail(data) {
+    alert("Fail :( Check the console");
+    console.log('fail', data);
 }
 
 

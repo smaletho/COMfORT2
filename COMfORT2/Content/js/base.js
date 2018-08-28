@@ -13,7 +13,7 @@ $(function () {
     if (location.hostname == "") {
         // when this function finishes, it will call the remaining init
         offlineLoadInit();
-    } else if (location.pathname.indexOf("ReadPage") != -1) {
+    } else if (location.pathname.indexOf("Build") != -1) {
         // using the page viewer.
         viewerInit();
     } else {
@@ -22,7 +22,7 @@ $(function () {
 
         updateLoadingText('Loading file');
         //loading
-        transmitAction(URL_GetBook, gotBookInfo, fail_BookInfo, "", null);
+        transmitAction(URL_LoadBook, gotBookInfo, fail_BookInfo, "", null);
     }
 });
 
@@ -146,55 +146,22 @@ function buildTableOfContents() {
     // traverse the tree and build the TOC
     var tocHtmlString = "";
 
-    $(ConfigXml).contents().each(function processNodes() {
+    $(ConfigXml).contents().contents().each(function processNodes() {
         // if it's the main book, render different
-        if (this.nodeName.toLowerCase() === "book") {
-            // fill in the title
-            $("#toc-book-title").text(this.attributes.name.value);
+        if (this.nodeName.toLowerCase() === "module") {
 
-            // recurse
-            $(this).contents().each(processNodes);
-        } else if (!blankTextNode(this) && this.nodeName.toLowerCase() !== "page") {
             var id = $(this).prop('id');
             var type = this.nodeName.toLowerCase();
-            
+
 
             var name = this.attributes.name.value;
 
 
-            tocHtmlString += "<div data-id='" + id + "' class='nav-link " + type + "'>";
+            tocHtmlString += "<div data-id='" + id + "' class='nav-link " + type + " theme" + this.attributes.theme.value + "'>";
+            tocHtmlString += '<div class="color-block"><div class="dark-box"><img src="' + URL_Content + 'Content/images/left-mask.png" width="20" height="40" /></div><div class="light-box"><img src="' + URL_Content + 'Content/images/right-mask.png" width="20" height="40" /></div></div>';
             tocHtmlString += "<div class='text'>" + name + "</div>";
-
-
-            var children = $(this).children();
-            
-
-            if (children.length > 0) {
-                tocHtmlString += "<div class='plusMinus' data-id='" + id + "'>+</div>";
-            }
-
             tocHtmlString += "</div>";
-
-            
-            
-
-            if (this.nodeName.toLowerCase() === "chapter") {
-                // if it's a chapter, update page numbers
-                tocHtmlString += "<div class='sub-links pages' data-id='" + id + "'>";
-
-                for (var i = 0; i < children.length; i++) {
-                    tocHtmlString += "<div class='nav-link page' data-id='" + children[i].attributes.id.value +"'>" + (i + 1) + "</div>";
-                }
-            } else {
-                tocHtmlString += "<div class='sub-links' data-id='" + id + "'>";
-            }
-
-            // recurse
-            $(this).contents().each(processNodes);
-
-            // close out the div
-            tocHtmlString += "</div>";
-        }
+        } 
     });
 
     $("#pageList").html(tocHtmlString);
@@ -208,8 +175,8 @@ function buildTableOfContents() {
 
 function openNav() {
     if ($("#toc").width() === 0) {
-        $("#toc").css('width', '33%');
-        $("#menu-open").css('margin-left', '33%');
+        $("#toc").css('width', '20%');
+        $("#menu-open").css('margin-left', '20%');
     } else {
         closeNav();
     }

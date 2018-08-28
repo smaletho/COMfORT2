@@ -16,9 +16,11 @@
         var PageContent = [];
         var ScaleRatio = 1;
         var CurrentLocation;
+        var URL_Content = '@Url.Content("~/")';
 
 
-        var URL_GetBook = '@Url.Action("LoadBook", new { id=(int)ViewBag.BookId })';
+        var URL_LoadBook = '@Url.Action("LoadBook", new { id=(int)ViewBag.BookId })';
+        var URL_LoadFile = '@Url.Action("LoadFile")';
     </script>
     <script src="~/Content/js/navigation.js"></script>
     <script src="~/Content/js/base.js"></script>
@@ -53,11 +55,11 @@
                             <img src="~/Content/images/small-back.png" />
                         </div>
                         <div id="module-head">
-                            <div id="color-block">
-                                <div id="dark-box">
+                            <div class="color-block">
+                                <div class="dark-box">
                                     <img src="~/Content/images/left-mask.png" width="20" height="40"/>
                                 </div>
-                                <div id="light-box">
+                                <div class="light-box">
                                     <img src="~/Content/images/right-mask.png"  width="20" height="40"/>
                                 </div>
                             </div>

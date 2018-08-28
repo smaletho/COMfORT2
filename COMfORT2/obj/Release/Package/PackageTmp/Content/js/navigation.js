@@ -4,14 +4,14 @@
     $("#next-button").on('click', nextPage);
     $("#previous-button").on('click', previousPage);
 
-    $(".chapter-item").on('click', function () {
-        var id = $(this).data('id');
-        loadPage(id, "chapter");
-    });
-    $(".section-item").on('click', function () {
-        var id = $(this).data('id');
-        loadPage(id, "section");
-    });
+    //$(".chapter-item").on('click', function () {
+    //    var id = $(this).data('id');
+    //    loadPage(id, "chapter");
+    //});
+    //$(".section-item").on('click', function () {
+    //    var id = $(this).data('id');
+    //    loadPage(id, "section");
+    //});
     $(".dot").on('click', function () {
         var id = $(this).data('page');
         loadPage(id, "page");
@@ -30,8 +30,8 @@
 function unbindNavigation() {
     $("#next-button").unbind();
     $("#previous-button").unbind();
-    $(".chapter-item").unbind();
-    $(".section-item").unbind();
+    //$(".chapter-item").unbind();
+    //$(".section-item").unbind();
     $(".dot").unbind();
     $(document).unbind();
 }

@@ -60,7 +60,7 @@ namespace COMfORT2.Controllers
             using (ZipFile zip = new ZipFile())
             {
                 zip.AddDirectory(Server.MapPath("~/Content/"), "/Content/");
-                
+
                 // Add Index.html
                 //  I need to strip down this file, and include the variables "config1.js" and config2.js"
 
@@ -68,7 +68,7 @@ namespace COMfORT2.Controllers
                 {
                     string text = System.IO.File.ReadAllText(Server.MapPath("~/Views/View/Index.cshtml"));
 
-                    text = text.Replace("~/Content", "./Content");
+                    text = text.Replace("~/", "./");
 
                     //// replace <link href="~/Content/css/base.css" rel="stylesheet" />
                     ////  with <link href="~/css/base.css" rel="stylesheet" />

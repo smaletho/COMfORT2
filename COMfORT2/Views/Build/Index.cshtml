@@ -1,4 +1,4 @@
-﻿@model COMfORT2.Controllers.ViewController.PageViewModel
+﻿@model COMfORT2.Controllers.PageViewModel
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -6,6 +6,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>COMfORT 2 - Viewer</title>
     <!--stylesheets-->
+    <link rel="stylesheet" href="~/fonts/FiraSans/Fonts.css">
+    <link href="~/Content/css/themes.css" rel="stylesheet" />
     <link href="~/Content/css/base.css" rel="stylesheet" />
     <link href="~/Content/css/pageContent.css" rel="stylesheet" />
 
@@ -16,7 +18,14 @@
         var PageContent = [];
         var ScaleRatio = 1;
         var CurrentLocation;
+        var URL_Content = '@Url.Content("~/")';
         var xml = $.parseXML(`@Html.Raw(Model.XmlContent)`);
+        var URL_UploadAsset = '@Url.Action("UploadAsset")';
+        var URL_ViewAssets = '@Url.Action("ViewAssets", new { id = 0 })';
+        var URL_SavePage = '@Url.Action("SavePage")';
+        var URL_GoHome = '@Url.Action("Index", "Default")';
+
+        var URL_LoadFile = '@Url.Action("LoadFile", "View")';
     </script>
     <script src="~/Content/js/viewer.js"></script>
     <script src="~/Content/js/navigation.js"></script>
@@ -29,19 +38,17 @@
 
 <body>
     <div id="main-window">
-        <div id="top-bar">
-
-        </div>
 
         <div id="content">
             <div id="header">
                 <div id="top-bar">
-                    @using (Html.BeginForm("ReadPage", "View", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("ReadPage", "Build", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.TextBoxFor(m => m.File, new { type = "file" })
                         @Html.ValidationMessageFor(m => m.File)
                         <button type="submit">submit</button>
                     }
+                    <a href="javascript:void(0)" id="shell-assets">view assets</a>
                 </div>
                 <div id="sections">
                     <div id="section-list"></div>
@@ -56,7 +63,9 @@
             </div>
         </div>
 
-        <div id="bottom-bar"></div>
+        <div id="footer">
+            <button type="button" id="submit-page">Submit</button>
+        </div>
     </div>
 </body>
 </html>
