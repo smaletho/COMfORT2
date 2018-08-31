@@ -1,8 +1,38 @@
-﻿
+﻿@model List<COMfORT2.Book>
 @{
     ViewBag.Title = "ZipTest";
 }
 
-<h2>ZipTest</h2>
+<!DOCTYPE html>
 
-@Html.ActionLink("Do Zip", "DoZip")
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ChooseBook</title>
+</head>
+<body>
+    <div>
+        <table style="margin: 20px auto">
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Version</th>
+                <th>Created</th>
+                <th>Modified</th>
+            </tr>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("download", "DownloadBook", new { Controller = "View", id = book.BookId })
+                    </td>
+                    <td>@book.Name</td>
+                    <td>@book.Version</td>
+                    <td>@book.CreatedBy <br /> @book.CreateDate.ToShortDateString()</td>
+                    <td>@book.ModifiedBy <br /> @book.ModifyDate.ToShortDateString()</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

@@ -28,17 +28,7 @@ namespace COMfORT2.Controllers
                 byte[] binData = b.ReadBytes(file.ContentLength);
 
                 string fileContentText = System.Text.Encoding.UTF8.GetString(binData);
-
-                //XmlDocument xml = new XmlDocument();
-                //try
-                //{
-                    
-                //    xml.LoadXml(fileContentText);
-                //}
-                //catch (Exception e)
-                //{
-                //    return Content("bad xml     " + e.InnerException.Message);
-                //}
+                
 
 
                 // TODO: validate this
@@ -46,7 +36,7 @@ namespace COMfORT2.Controllers
 
 
 
-                return Index(model);
+                return RedirectToAction("Index", new { model });
             }
             catch
             {
@@ -55,10 +45,40 @@ namespace COMfORT2.Controllers
 
         }
 
+        public ActionResult TempDbRewrite()
+        {
+            // find all pages and change "position-x" to "left" and "position-y" to "top"
+            ComfortModel cdb = new ComfortModel();
+            foreach (var page in cdb.Pages.ToList())
+            {
+                string content = page.PageContent.Replace("position-x", "left");
+                content = content.Replace("position-y", "top");
+                page.PageContent = content;
+            }
+
+            cdb.SaveChanges();
+
+            return Content("success");
+        }
+
         public ActionResult ViewAssets(int id)
         {
             return View("ViewAssets", new AssetModel(id));
         }
+
+        public ActionResult DeleteFile(int id)
+        {
+            int pageId = 0;
+
+            ComfortModel cdb = new ComfortModel();
+            var file = cdb.Files.Where(x => x.FileId == id).FirstOrDefault();
+            pageId = file.PageId;
+            cdb.Files.Remove(file);
+            cdb.SaveChanges();
+
+            return RedirectToAction("ViewAssets", new { id = pageId });
+        }
+
 
         [HttpPost]
         public ActionResult UploadAsset(AssetModel model)
@@ -83,12 +103,12 @@ namespace COMfORT2.Controllers
 
             cdb.Files.Add(f);
             cdb.SaveChanges();
-            return ViewAssets(0);
+            return RedirectToAction("ViewAssets", new { id = 0 });
         }
 
 
         [HttpPost]
-        public ActionResult SavePage(string xml, List<string> images)
+        public ActionResult SavePage(string xml, List<string> images, string email)
         {
             ComfortModel cdb = new ComfortModel();
 
@@ -102,7 +122,7 @@ namespace COMfORT2.Controllers
                 return Content("bad xml     " + e.InnerException.Message);
             }
 
-            Page page = new Page("tsmale@rktcreative.com");
+            Page page = new Page(email);
             page.PageContent = "";
             cdb.Pages.Add(page);
             cdb.SaveChanges();
@@ -164,6 +184,7 @@ namespace COMfORT2.Controllers
         [Required, FileExtensions(Extensions = "xml",
                      ErrorMessage = "Specify an XML file.")]
         public HttpPostedFileBase UploadedFile { get; set; }
+
     }
 
     public class PageViewModel

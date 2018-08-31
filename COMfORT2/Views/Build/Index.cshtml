@@ -43,11 +43,11 @@
             <div id="header">
                 <div id="top-bar">
                     @using (Html.BeginForm("ReadPage", "Build", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        @Html.TextBoxFor(m => m.File, new { type = "file" })
-                        @Html.ValidationMessageFor(m => m.File)
-                        <button type="submit">submit</button>
-                    }
+            {
+                @Html.TextBoxFor(m => m.File, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.File)
+                <button type="submit">submit</button>
+    }
                     <a href="javascript:void(0)" id="shell-assets">view assets</a>
                 </div>
                 <div id="sections">
@@ -61,11 +61,13 @@
             <div id="page-content" style="border:1px solid black;">
                 <div id="definitionWindow"></div>
             </div>
+
+            <div id="footer">
+                <button type="button" id="submit-page">Submit</button>
+            </div>
         </div>
 
-        <div id="footer">
-            <button type="button" id="submit-page">Submit</button>
-        </div>
+        
     </div>
 </body>
 </html>

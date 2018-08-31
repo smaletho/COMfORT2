@@ -4,28 +4,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>COMfORT 2</title>
     <!--stylesheets-->
-    <link href="./css/base.css" rel="stylesheet" />
-    <link href="./css/pageContent.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./fonts/FiraSans/Fonts.css">
+    <link href="./Content/css/themes.css" rel="stylesheet" />
+    <link href="./Content/css/base.css" rel="stylesheet" />
+    <link href="./Content/css/pageContent.css" rel="stylesheet" />
 
     <!--scripts-->
-    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./Content/js/jquery-3.3.1.min.js"></script>
     <script>
         var ConfigXml;
         var PageContent = [];
         var ScaleRatio = 1;
         var CurrentLocation;
+        var URL_Content = '@Url.Content("./")';
 
 
-        var URL_GetBook = '@Url.Action("LoadBook", new { id=(int)ViewBag.BookId })';
+        var URL_LoadBook = '@Url.Action("LoadBook", new { id=(int)ViewBag.BookId })';
+        var URL_LoadFile = '@Url.Action("LoadFile")';
     </script>
-    <script src="./js/navigation.js"></script>
-    <script src="./js/base.js"></script>
-    <script src="./js/validate.js"></script>
-    <script src="./js/loading.js"></script>
-    <script src="./js/shared.js"></script>
-    <script src="./js/offline.js"></script><script src="./js/config1.js"></script><script src="./js/config2.js"></script>
+    <script src="./Content/js/navigation.js"></script>
+    <script src="./Content/js/base.js"></script>
+    <script src="./Content/js/validate.js"></script>
+    <script src="./Content/js/loading.js"></script>
+    <script src="./Content/js/shared.js"></script>
+    <script src="./Content/js/userTrack.js"></script>
+    <script src="./Content/js/offline.js"></script><script src="./Content/js/config1.js"></script><script src="./Content/js/config2.js"></script>
 
-    <!-- For offline switch the src for each script, and include offline.js -->
 </head>
 
 <body>
@@ -35,7 +39,6 @@
         <div id="inner-window">
             <div id="toc">
                 <a href="javascript:void(0)" id="menu-close">&times;</a>
-                <!--<a href="javascript:void()" class="closebtn">&#9776;</a>-->
                 <div id="toc-book-title"></div>
                 <div id="pageList">
 
@@ -45,8 +48,22 @@
             <div id="content">
                 <div id="header">
                     <div id="top-bar">
-                        <div id="menu-open">&lt; MENU</div>
-                        <div id="module-name"></div>
+                        <div id="menu-open">
+                            <span>MENU</span>
+                            <img src="./Content/images/small-back.png" />
+                        </div>
+                        <div id="module-head">
+                            <div class="color-block">
+                                <div class="dark-box">
+                                    <img src="./Content/images/left-mask.png" width="20" height="40" />
+                                </div>
+                                <div class="light-box">
+                                    <img src="./Content/images/right-mask.png" width="20" height="40" />
+                                </div>
+                            </div>
+                            <span id="book-name"></span>
+                            <span id="module-name"></span>
+                        </div>
                     </div>
                     <div id="sections">
                         <div id="section-list"></div>
@@ -58,41 +75,45 @@
 
                 <div id="page-content">
                     <div id="definitionWindow"></div>
-                    <div id="offline-load">
-                        <div style="display:table;margin:20px auto">
-                            <label>Choose config file<input type="file" id="config-file" name="config-file" /></label><br />
-                        </div>
 
 
-                    </div>
                 </div>
 
                 <div id="footer">
-                    <div id="previous-button">&lt; PREVIOUS</div>
-                    <div id="page-dots">
-                        <div id="page-dot-content"></div>
-                        <div id="progress-container">
-                            <div id="progress-bar"></div>
+
+                    <div class="foot-float">
+                        <img id="previous-button" src="./Content/images/back-arrow.png" />
+                    </div>
+
+                    <div class="foot-float">
+                        <div id="page-dot-content">
+                            <div id="dot-container"></div>
                         </div>
                     </div>
-                    <div id="next-button">NEXT &gt;</div>
+
+                    <div class="foot-float">
+                        <img id="next-button" src="./Content/images/forward-arrow.png" />
+                    </div>
+
 
                 </div>
             </div>
 
+            
+        </div>
 
-            <div id="loading">
-                <div id="loading-box">
-                    <img src="./images/loading.gif" />
-                    <div id="loading-text"></div>
-                </div>
+
+        <div id="loading">
+            <div id="loading-box">
+                <img src="./Content/images/loading.gif" />
+                <div id="loading-text"></div>
             </div>
-
-
         </div>
 
 
     </div>
+
+
 
 </body>
 </html>

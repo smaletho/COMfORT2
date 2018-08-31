@@ -13,7 +13,7 @@ function renderInit() {
         var pos = $(this).offset();
 
 
-        $("#definitionWindow").css('top', (pos.top - 50) + "px");
+        $("#definitionWindow").css('top', (pos.top - 125) + "px");
         $("#definitionWindow").css('left', pos.left + "px");
 
         $("#definitionWindow").show();
@@ -35,6 +35,7 @@ function renderElement(element) {
         case "text": 
             newNode = textNode(element);
             break;
+        case "img":
         case "image":
             newNode = imageNode(element);
             break;
@@ -46,11 +47,11 @@ function renderElement(element) {
 
     for (var i = 0; i < element.attributes.length; i++) {
         switch (element.attributes[i].nodeName.toLowerCase()) {
-            case "position-x": {
+            case "left": {
                 $(newNode).css('left', element.attributes[i].value + "px");
                 break;
             }
-            case "position-y": {
+            case "top": {
                 $(newNode).css('top', element.attributes[i].value + "px");
                 break;
             }
@@ -87,6 +88,20 @@ function buttonNode(element) {
     var newNode = $("<button></button>");
     $(newNode).addClass("item");
     $(newNode).html($.trim(element.innerHTML));
+
+    $(newNode).on('click', function () {
+        loadPage(element.id, "page");
+    });
+
+    for (var i = 0; i < element.attributes.length; i++) {
+        switch (element.attributes[i].nodeName.toLowerCase()) {
+            case "": {
+                
+                break;
+            }
+        }
+    }
+
     return newNode;
 }
 
@@ -100,9 +115,16 @@ function imageNode(element) {
                 // "i_{id}"
                 // find the associated file
                 var src = element.attributes[i].value;
+                var newSrc = ""
 
-                // TODO: set up URL Content
-                var newSrc = URL_Content + "ImageManager.ashx?id=" + src;
+                // running offline
+                if (location.hostname == "") {
+                    // TODO: catch other types of images
+                    newSrc = "./Content/images/" + src + ".jpg";
+                } else {
+                    newSrc = URL_Content + "ImageManager.ashx?id=" + src;
+                }
+                
                 
 
                 $(newNode).prop('src', newSrc);

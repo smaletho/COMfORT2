@@ -22,13 +22,16 @@ function viewerInit() {
     $("#submit-page").on('click', function () {
         if (confirm("Would you like to save this page?")) {
 
-            //.item src
-            var arr = $(".item").map(function () { return $(this).prop('src'); }).get();
+            var email = prompt("Please enter your email address for saving.");
+            if (email !== null) {
+                //.item src
+                var arr = $(".item").map(function () { return $(this).prop('src'); }).get();
 
-            var s = new XMLSerializer();
-            var str = s.serializeToString(xml);
+                var s = new XMLSerializer();
+                var str = s.serializeToString(xml);
 
-            transmitAction(URL_SavePage, savePageSuccess, savePageFail, "", { xml: str, images: arr });
+                transmitAction(URL_SavePage, savePageSuccess, savePageFail, "", { xml: str, images: arr, email: email });
+            }
         }
     });
 }

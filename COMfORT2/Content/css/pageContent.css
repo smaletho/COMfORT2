@@ -1,7 +1,7 @@
 ﻿#page-content {
-    padding: 15px;
+    padding: 30px 50px;
     margin-top: 135px;
-    height: 667px;
+    height: 638px;
     position: relative;
     font-size: 14pt;
 }
@@ -27,6 +27,8 @@
         background-color: black;
         border: 4px outset gray;
         border-radius: 10px;
+        font-family:Fira Mono;
+        font-size:12pt;
     }
 
         #page-content button:active {

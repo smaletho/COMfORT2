@@ -4,14 +4,14 @@
     $("#next-button").on('click', nextPage);
     $("#previous-button").on('click', previousPage);
 
-    //$(".chapter-item").on('click', function () {
-    //    var id = $(this).data('id');
-    //    loadPage(id, "chapter");
-    //});
-    //$(".section-item").on('click', function () {
-    //    var id = $(this).data('id');
-    //    loadPage(id, "section");
-    //});
+    $(".chapter-item").on('click', function () {
+        var id = $(this).data('id');
+        loadPage(id, "chapter");
+    });
+    $(".section-item").on('click', function () {
+        var id = $(this).data('id');
+        loadPage(id, "section");
+    });
     $(".dot").on('click', function () {
         var id = $(this).data('page');
         loadPage(id, "page");
@@ -30,8 +30,8 @@
 function unbindNavigation() {
     $("#next-button").unbind();
     $("#previous-button").unbind();
-    //$(".chapter-item").unbind();
-    //$(".section-item").unbind();
+    $(".chapter-item").unbind();
+    $(".section-item").unbind();
     $(".dot").unbind();
     $(document).unbind();
 }
@@ -212,24 +212,24 @@ function selectPageDots() {
 
 function updateTableOfContents() {
     // Update the TOC highlighting and stuff
-    $(".sub-links").hide();
+    //$(".sub-links").hide();
 
-    $(".sub-links[data-id=" + CurrentLocation.Module + "]").show();
-    $(".sub-links[data-id=" + CurrentLocation.Section + "]").show();
-    $(".sub-links[data-id=" + CurrentLocation.Chapter + "]").show();
+    //$(".sub-links[data-id=" + CurrentLocation.Module + "]").show();
+    //$(".sub-links[data-id=" + CurrentLocation.Section + "]").show();
+    //$(".sub-links[data-id=" + CurrentLocation.Chapter + "]").show();
 
     $(".page").removeClass('activePage');
     $(".page[data-id='" + CurrentLocation.Page + "']").addClass('activePage');
 
     // update the plusMinus
-    $(".plusMinus").html('+');
-    $(".plusMinus").removeClass('activePlusMinus');
-    $(".plusMinus[data-id='" + CurrentLocation.Chapter + "']").html("-");
-    $(".plusMinus[data-id='" + CurrentLocation.Section + "']").html("-");
-    $(".plusMinus[data-id='" + CurrentLocation.Module + "']").html("-");
-    $(".plusMinus[data-id='" + CurrentLocation.Chapter + "']").addClass("activePlusMinus");
-    $(".plusMinus[data-id='" + CurrentLocation.Section + "']").addClass("activePlusMinus");
-    $(".plusMinus[data-id='" + CurrentLocation.Module + "']").addClass("activePlusMinus");
+    //$(".plusMinus").html('+');
+    //$(".plusMinus").removeClass('activePlusMinus');
+    //$(".plusMinus[data-id='" + CurrentLocation.Chapter + "']").html("-");
+    //$(".plusMinus[data-id='" + CurrentLocation.Section + "']").html("-");
+    //$(".plusMinus[data-id='" + CurrentLocation.Module + "']").html("-");
+    //$(".plusMinus[data-id='" + CurrentLocation.Chapter + "']").addClass("activePlusMinus");
+    //$(".plusMinus[data-id='" + CurrentLocation.Section + "']").addClass("activePlusMinus");
+    //$(".plusMinus[data-id='" + CurrentLocation.Module + "']").addClass("activePlusMinus");
     
 }
 
@@ -246,8 +246,8 @@ function populateMenus() {
         var bookName = $(ConfigXml).find(":root").first();
         $("#book-name").html(bookName[0].attributes.name.value);
         $("#module-name").html(name);
-        $("#inner-window").removeClass();
-        $("#inner-window").addClass("theme" + mod[0].attributes.theme.value);
+        $("#content").removeClass();
+        $("#content").addClass("theme" + mod[0].attributes.theme.value);
         //$("#top-bar").css('background-color', color);
         //$("#module-name").css('color', fontColor);
     }

@@ -183,7 +183,12 @@ namespace COMfORT2.Controllers
 
 
 
-
+        public ActionResult ChooseBook()
+        {
+            ComfortModel cdb = new ComfortModel();
+            var bookList = cdb.Books.Where(x => x.Published).OrderByDescending(x => x.ModifyDate).ToList();
+            return View(bookList);
+        }
 
 
         
@@ -267,7 +272,7 @@ namespace COMfORT2.Controllers
                                 var foundPage = pages.Where(x => x.PageId == p.PageId).FirstOrDefault();
 
                                 XmlElement bpa = this.ConfigXml.CreateElement("page");
-                                bpa.SetAttribute("id", "p_" + p.PageId);
+                                bpa.SetAttribute("id", "p_" + foundPage.PageId);
                                 bpa.SetAttribute("type", foundPage.Type);
                                 cha.AppendChild(bpa);
 
@@ -285,7 +290,7 @@ namespace COMfORT2.Controllers
 
 
                                     newPage.Module = "m_" + moduleCount;
-                                    newPage.Page = "p_" + p.BookPageId;
+                                    newPage.Page = "p_" + foundPage.PageId;
                                     newPage.Section = "s_" + sectionCount;
 
                                     this.PageContent.Add(newPage);

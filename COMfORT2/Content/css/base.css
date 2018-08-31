@@ -482,15 +482,16 @@ html {
 #dot-container {display:table;margin: 0 auto;}
 .dot {
     float: left;
-    width: 30px;
-    height: 38px;
+    width: 25px;
+    height: 20px;
     border: none;
     text-align: center;
-    padding-top: 30px;
+    padding-top: 0;
     font-weight: bold;
     cursor: pointer;
-    margin-top: -30px;
-    font-size: 15pt;
+    margin-top: 5px;
+    font-size: 12pt;
+    border-bottom:1px solid;
 }
     .dot.leftborder {
         border-left: 1px solid black;

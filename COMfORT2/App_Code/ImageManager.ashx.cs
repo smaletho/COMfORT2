@@ -1,11 +1,8 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Routing;
 
 namespace COMfORT2
 {
@@ -47,7 +44,7 @@ namespace COMfORT2
                 byteSeq = strm.Read(buffer, 0, 4096);
             }
         }
-        
+
         public bool IsReusable
         {
             get
@@ -56,13 +53,4 @@ namespace COMfORT2
             }
         }
     }
-
-    //public class ImageRouteHandler : IRouteHandler
-    //{
-    //    public IHttpHandler GetHttpHandler(RequestContext requestContext)
-    //    {
-    //        // TODO: wtf is this
-    //        return new ImageManager();
-    //    }
-    //}
 }

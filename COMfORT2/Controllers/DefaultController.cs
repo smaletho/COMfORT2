@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net.Mail;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -21,13 +22,16 @@ namespace COMfORT2.Controllers
             return View();
         }
 
-
-        public ActionResult ZipTest()
+        public ActionResult ChooseDownloadBook()
         {
-            return View();
+            ComfortModel cdb = new ComfortModel();
+            var bookList = cdb.Books.Where(x => x.Published).OrderByDescending(x => x.ModifyDate).ToList();
+            return View(bookList);
         }
 
-        public ActionResult DoZip()
+        
+
+        public ActionResult DownloadBook(int id)
         {
             // delete all the old stuff
             DeleteOldFiles();
@@ -35,7 +39,11 @@ namespace COMfORT2.Controllers
 
 
             // grab all the stuff
-            ViewController.BookModel model = new ViewController.BookModel(1);
+            ComfortModel cdb = new ComfortModel();
+            ViewController.BookModel model = new ViewController.BookModel(id);
+            var theBook = cdb.Books.Where(x => x.BookId == id).FirstOrDefault();
+
+            // TODO validate
 
             // loop through model.PageContent, and separate out all the XML pieces
             List<string> contentLs = new List<string>();
@@ -49,9 +57,16 @@ namespace COMfORT2.Controllers
             // change the offline load to read two different files
             string dt = DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss");
 
+            // make the name of the book safe for filenames
+            string bookName = theBook.Name;
+            foreach (var c in Path.GetInvalidFileNameChars())
+            {
+                bookName = bookName.Replace(c, '-');
+            }
 
-            string fullFileName = Server.MapPath("~/ZipDump/comfort_" + dt + ".zip");
-            string fileName = "comfort_" + dt + ".zip";
+
+            string fullFileName = Server.MapPath("~/ZipDump/" + bookName + "_" + dt + ".zip");
+            string fileName = bookName + "_" + dt + ".zip";
 
             string configFile1 = Server.MapPath("~/ZipDump/1config_" + dt + ".js");
             string configFile2 = Server.MapPath("~/ZipDump/2config_" + dt + ".js");
@@ -60,6 +75,7 @@ namespace COMfORT2.Controllers
             using (ZipFile zip = new ZipFile())
             {
                 zip.AddDirectory(Server.MapPath("~/Content/"), "/Content/");
+                zip.AddDirectory(Server.MapPath("~/fonts/"), "/fonts/");
 
                 // Add Index.html
                 //  I need to strip down this file, and include the variables "config1.js" and config2.js"
@@ -69,55 +85,11 @@ namespace COMfORT2.Controllers
                     string text = System.IO.File.ReadAllText(Server.MapPath("~/Views/View/Index.cshtml"));
 
                     text = text.Replace("~/", "./");
-
-                    //// replace <link href="~/Content/css/base.css" rel="stylesheet" />
-                    ////  with <link href="~/css/base.css" rel="stylesheet" />
-                    //text = text.Replace("<link href=\"~/Content/css/base.css\" rel=\"stylesheet\" />", "<link href=\"./css/base.css\" rel=\"stylesheet\" />");
-
-                    //// replace <link href="~/Content/css/pageContent.css" rel="stylesheet" />
-                    ////  with <link href="~/css/pageContent.css" rel="stylesheet" />
-                    //text = text.Replace("<link href=\"~/Content/css/pageContent.css\" rel=\"stylesheet\" />", "<link href=\"./css/pageContent.css\" rel=\"stylesheet\" />");
-
-                    //// replace <script src="~/Content/js/jquery-3.3.1.min.js"></script>
-                    ////  with <script src="~/js/jquery-3.3.1.min.js"></script>
-                    //text = text.Replace("<script src=\"~/Content/js/jquery-3.3.1.min.js\"></script>", "<script src=\"./js/jquery-3.3.1.min.js\"></script>");
-
-                    //// replace <script src="~/Content/js/navigation.js"></script>
-                    ////  with <script src="~/js/navigation.js"></script>
-                    //text = text.Replace("<script src=\"~/Content/js/navigation.js\"></script>", "<script src=\"./js/navigation.js\"></script>");
-
-                    //// replace <script src="~/Content/js/base.js"></script>
-                    ////  with <script src="~/js/base.js"></script>
-                    //text = text.Replace("<script src=\"~/Content/js/base.js\"></script>", "<script src=\"./js/base.js\"></script>");
-
-                    //// replace <script src="~/Content/js/validate.js"></script>
-                    ////  with <script src="~/js/validate.js"></script>
-                    //text = text.Replace("<script src=\"~/Content/js/validate.js\"></script>", "<script src=\"./js/validate.js\"></script>");
-
-                    //// replace <script src="~/Content/js/loading.js"></script>
-                    ////  with <script src="~/js/loading.js"></script>
-                    //text = text.Replace("<script src=\"~/Content/js/loading.js\"></script>", "<script src=\"./js/loading.js\"></script>");
-
-                    //// replace <script src="~/Content/js/shared.js"></script>
-                    ////  with <script src="~/js/shared.js"></script>
-                    //text = text.Replace("<script src=\"~/Content/js/shared.js\"></script>", "<script src=\"./js/shared.js\"></script>");
-
-                    //// replace <script src="~/Content/js/userTrack.js"></script>
-                    ////  with <script src="~/js/userTrack.js"></script>
-                    //text = text.Replace("<script src=\"~/Content/js/userTrack.js\"></script>", "<script src=\"./js/userTrack.js\"></script>");
-
-                    //// ---- Special case: replace offline.js with both config files (created next)
-                    //// replace <script src="~/Content/js/offline.js"></script>
-                    ////  with <script src="~/js/offline.js"></script><script src="~/js/config1.js"></script><script src="~/js/config2.js"></script>
-
+                    
                     string scriptText = "<script src=\"./Content/js/offline.js\"></script>";
                     scriptText += "<script src=\"./Content/js/config1.js\"></script>";
                     scriptText += "<script src=\"./Content/js/config2.js\"></script>";
                     text = text.Replace("<script src=\"./Content/js/offline.js\"></script>", scriptText);
-
-
-                    //// replace loading image
-                    ///text = text.Replace("<img src=\"~/Content/images/loading.gif\" />", "<img src=\"./images/loading.gif\" />");
                     
                     tw.Write(text);
                     zip.AddFile(homeFile).FileName = "index.html";
@@ -161,9 +133,48 @@ namespace COMfORT2.Controllers
 
                     zip.AddFile(configFile2).FileName = "/Content/js/config2.js";
                 }
-                
 
+                // map the images too
 
+                // first get all the pages in the book
+                var bookPages = cdb.BookPages.Where(x => x.BookId == theBook.BookId).Select(x => x.PageId).ToList();
+                var pages = cdb.Pages.Where(x => bookPages.Contains(x.PageId)).ToList();
+                foreach (var p in pages)
+                {
+                    // find all associated files with that page
+                    var files = cdb.Files.Where(x => x.PageId == p.PageId).ToList();
+                    int count = 1;
+                    foreach (var f in files)
+                    {
+                        if (f.Content != null)
+                        {
+                            string fName = Server.MapPath("~/ZipDump/f_" + count.ToString() + "_" + dt);
+                            string newFileName = "/Content/";
+                            switch (f.FileType)
+                            {
+                                case FileType.Photo:
+                                    switch (f.ContentType)
+                                    {
+                                        case "image/jpeg":
+                                            fName += ".jpg";
+                                            newFileName += "images/i_" + f.FileId.ToString() + ".jpg";
+                                            break;
+                                    }
+                                    break;
+                                case FileType.Video:
+                                    break;
+                            }
+                            
+                            // write the file to the stream
+                            using (var tw = new StreamWriter(fName, true))
+                            {
+                                tw.BaseStream.Write(f.Content, 0, f.Content.Length);
+
+                                zip.AddFile(fName).FileName = newFileName;
+                            }
+                        }
+                    }
+                }
                 
 
 
@@ -183,6 +194,7 @@ namespace COMfORT2.Controllers
 
             try
             {
+                string[] jpgList = Directory.GetFiles(sourceDir, "*.jpg");
                 string[] zipList = Directory.GetFiles(sourceDir, "*.zip");
                 string[] jsList = Directory.GetFiles(sourceDir, "*.js");
                 string[] htmlList = Directory.GetFiles(sourceDir, "*.html");
