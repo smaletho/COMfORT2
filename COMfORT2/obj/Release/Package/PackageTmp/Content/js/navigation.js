@@ -42,11 +42,12 @@ function nextPage() {
     var allPages = $(ConfigXml).find('page');
 
     for (var i = 0; i < allPages.length; i++) {
-        if ($(allPages[i]).prop('id') === CurrentLocation.Page) {
+        var id = $(allPages[i])[0].attributes["id"].value;
+        if (id === CurrentLocation.Page) {
             if (i + 1 >= allPages.length) {
                 alert("you're off the edge");
             } else {
-                loadPage($(allPages[i + 1]).prop('id'), "page");
+                loadPage($(allPages[i + 1])[0].attributes["id"].value, "page");
             }
             break;
         }
@@ -56,11 +57,12 @@ function previousPage() {
     var allPages = $(ConfigXml).find('page');
 
     for (var i = 0; i < allPages.length; i++) {
-        if ($(allPages[i]).prop('id') === CurrentLocation.Page) {
+        var id = $(allPages[i])[0].attributes["id"].value;
+        if (id === CurrentLocation.Page) {
             if (i - 1 < 0) {
                 alert("you're off the edge");
             } else {
-                loadPage($(allPages[i - 1]).prop('id'), "page");
+                loadPage($(allPages[i - 1])[0].attributes["id"].value, "page");
             }
             break;
         }
@@ -69,27 +71,28 @@ function previousPage() {
 function loadPage(id, type) {
     if (typeof id === "undefined") {
         // load the first page of the module
-        var newId = $(ConfigXml).find('page').first().prop('id');
-        loadPage(newId, "page");
+        var newId = $(ConfigXml).find('page').first();
+
+        loadPage(newId[0].attributes["id"].value, "page");
     } else {
 
         var targetPage;
-
+        var tempElement;
         switch (type) {
             case "page":
                 // id is already a page
                 break;
             case "chapter":
-                id = $(ConfigXml).find("#" + id).children("page").first().prop('id');
-                
+                tempElement = $(ConfigXml).find("#" + id).children("page").first();
+                id = tempElement[0].attributes["id"].value;                
                 break;
             case "section":
-                id = $(ConfigXml).find("#" + id).children("chapter").first().children("page").first().prop('id');
-                
+                tempElement = $(ConfigXml).find("#" + id).children("chapter").first().children("page").first();
+                id = tempElement[0].attributes["id"].value;                
                 break;
             case "module":
-                id = $(ConfigXml).find("#" + id).children("section").first().children("chapter").first().children("page").first().prop('id');
-                
+                tempElement = $(ConfigXml).find("#" + id).children("section").first().children("chapter").first().children("page").first();
+                id = tempElement[0].attributes["id"].value;                
                 break;
         }
 

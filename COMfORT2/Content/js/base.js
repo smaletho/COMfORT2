@@ -141,7 +141,7 @@ function buildTableOfContents() {
 
     // make ConfigXml into an easier to deal with object to generate the 
 
-    console.log('all modules', $(ConfigXml).find('chapter').prop('id'))
+    //console.log('all modules', $(ConfigXml).find('chapter').prop('id'));
 
     // traverse the tree and build the TOC
     var tocHtmlString = "";

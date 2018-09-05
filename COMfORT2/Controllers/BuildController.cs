@@ -17,32 +17,133 @@ namespace COMfORT2.Controllers
             return View("Index", model);
         }
 
+        // when selecting a page for editing, you'll go here.
+        //  grab the info from the db and create a PageViewModel
+        //  send that to Index to load the page.
+        public ActionResult ViewPage(int id)
+        {
+            PageViewModel model = new PageViewModel();
+            ComfortModel cdb = new ComfortModel();
+            if (id == 0)
+            {
+                model.PageId = 0;
+                model.PageName = "New Page";
+                model.XmlContent = "<page type=\"content\"></page>";
+            }
+            else
+            {
+                var page = cdb.Pages.Where(x => x.PageId == id).FirstOrDefault();
+                
+                model.PageId = id;
+                model.XmlContent = page.PageContent;
+                model.PageName = page.Title;
+            }
+            
+
+            return View("Index", model);
+        }
+
+
+
+        public ActionResult ListBooks()
+        {
+            // TODO: remove this
+            AddTitlesToPages();
+
+            ComfortModel cdb = new ComfortModel();
+            return View(cdb.Books.ToList());
+        }
+
+        public ActionResult ListPages(int id)
+        {
+            List<Page> pageList = new List<Page>();
+            ComfortModel cdb = new ComfortModel();
+            if (id == 0)
+            {
+                // must find all pages not associated with a book
+
+                // get all pages
+                var pages = cdb.Pages.Select(x => x.PageId).ToList();
+
+                // get all BookPages that contain these pages
+                var usedBookPages = cdb.BookPages.Where(x => pages.Contains(x.PageId)).Select(x => x.PageId).ToList();
+
+                // find all pages that are not in the previous list
+                pageList = cdb.Pages.Where(x => !usedBookPages.Contains(x.PageId)).ToList();
+            }
+            else
+            {
+                var bookPages = cdb.BookPages.Where(x => x.BookId == id).Select(x => x.PageId).ToList();
+                pageList = cdb.Pages.Where(x => bookPages.Contains(x.PageId)).ToList();
+            }
+            
+            return View(pageList);
+        }
+
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult ReadPage(PageViewModel model)
         {
-            try
-            {
-                HttpPostedFileBase file = Request.Files[0];
+            // TODO: validate the XML in the model
+            return View("Index", model);
 
-                BinaryReader b = new BinaryReader(file.InputStream);
-                byte[] binData = b.ReadBytes(file.ContentLength);
 
-                string fileContentText = System.Text.Encoding.UTF8.GetString(binData);
+
+
+
+
+
+
+
+
+
+            //try
+            //{
+            //    HttpPostedFileBase file = Request.Files[0];
+
+            //    BinaryReader b = new BinaryReader(file.InputStream);
+            //    byte[] binData = b.ReadBytes(file.ContentLength);
+
+            //    string fileContentText = System.Text.Encoding.UTF8.GetString(binData);
                 
 
 
-                // TODO: validate this
-                model.XmlContent = fileContentText;
+            //    // TODO: validate this
+            //    model.XmlContent = fileContentText;
 
 
+            //    return View("Index", model);
+            //}
+            //catch
+            //{
+            //    return Content("fail");
+            //}
 
-                return RedirectToAction("Index", new { model });
-            }
-            catch
+        }
+
+
+        public ActionResult ViewEditor(int id)
+        {
+            ComfortModel cdb = new ComfortModel();
+
+            PageViewModel model = new PageViewModel
             {
-                return Content("fail");
-            }
+                PageId = id
+            };
 
+            var page = cdb.Pages.Where(x => x.PageId == id).FirstOrDefault();
+            if (page != null)
+            {
+                model.PageName = page.Title;
+                string oldContent = page.PageContent;
+                model.XmlContent = oldContent.Replace("href=\"javascript:void(0)\"", "href=\"#\"");
+            }
+            else
+            {
+                model.PageName = "New Page";
+                model.XmlContent = "<page type=\"content\"></page>";
+            }
+            return View(model);
         }
 
         public ActionResult TempDbRewrite()
@@ -99,16 +200,20 @@ namespace COMfORT2.Controllers
             //  use ContentType ("image/jpeg" etc)
             f.FileType = FileType.Photo;
 
-            f.PageId = 0;
+            f.PageId = model.PageId;
 
             cdb.Files.Add(f);
             cdb.SaveChanges();
-            return RedirectToAction("ViewAssets", new { id = 0 });
+            return RedirectToAction("ViewAssets", new { id = model.PageId });
         }
 
 
         [HttpPost]
-        public ActionResult SavePage(string xml, List<string> images, string email)
+        public ActionResult SavePage(string xml, 
+            List<string> images, 
+            string email, 
+            int pageId,
+            string name)
         {
             ComfortModel cdb = new ComfortModel();
 
@@ -122,12 +227,25 @@ namespace COMfORT2.Controllers
                 return Content("bad xml     " + e.InnerException.Message);
             }
 
-            Page page = new Page(email);
-            page.PageContent = "";
-            cdb.Pages.Add(page);
-            cdb.SaveChanges();
+            var page = cdb.Pages.Where(x => x.PageId == pageId).FirstOrDefault();
+            if (page == null)
+            {
+                page = new Page(email);
+                cdb.Pages.Add(page);
+            }
+            else
+            {
+                page.Modify(email);
+            }
 
-            // grab Type from page node
+            page.Title = name;
+
+            // TODO: this
+            page.Type = "content";
+            page.PageContent = "";
+            
+            cdb.SaveChanges();
+            
 
             // these are page elements
             foreach (XmlElement node in doc.ChildNodes)
@@ -142,10 +260,10 @@ namespace COMfORT2.Controllers
                 {
                     if (child.Name.ToLower() == "image")
                     {
-                        string fileId = child.Attributes["id"].Value;
+                        string fileId = child.Attributes["source"].Value;
                         try
                         {
-                            int id = Convert.ToInt32(fileId.Split('_'));
+                            int id = Convert.ToInt32(fileId.Split('_')[1]);
                             var dbImage = cdb.Files.Where(x => x.FileId == id).FirstOrDefault();
                             if (dbImage != null)
                             {
@@ -158,14 +276,46 @@ namespace COMfORT2.Controllers
                         }
                         
                     }
+
+                    if (child.Name.ToLower() == "text")
+                    {
+                        foreach(var el in child.ChildNodes)
+                        {
+                            try
+                            {
+                                XmlElement e = (XmlElement)el;
+                                if (e.Name.ToLower() == "a")
+                                {
+                                    e.SetAttribute("href", "javascript:void(0)");
+                                }
+                            }
+                            catch { }
+                        }
+                    }
                 }
             }
 
-            page.PageContent = doc.ToString();
+            page.PageContent = doc.OuterXml;
             cdb.SaveChanges();
+            
             
 
             return Content("success");
+        }
+
+
+
+        public void AddTitlesToPages()
+        {
+            ComfortModel cdb = new ComfortModel();
+            foreach(var page in cdb.Pages.ToList())
+            {
+                if (string.IsNullOrEmpty(page.Title) || page.Title == "")
+                {
+                    page.Title = "New Page";
+                }
+            }
+            cdb.SaveChanges();
         }
     }
 
@@ -189,10 +339,13 @@ namespace COMfORT2.Controllers
 
     public class PageViewModel
     {
-        [Required, FileExtensions(Extensions = "xml",
-                     ErrorMessage = "Specify an XML file.")]
-        public HttpPostedFileBase File { get; set; }
+        //[Required, FileExtensions(Extensions = "xml",
+        //             ErrorMessage = "Specify an XML file.")]
+        //public HttpPostedFileBase File { get; set; }
 
+        [AllowHtml]
         public string XmlContent { get; set; }
+        public int PageId { get; set; }
+        public string PageName { get; set; }
     }
 }

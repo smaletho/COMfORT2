@@ -87,7 +87,10 @@ function renderElement(element) {
 function buttonNode(element) {
     var newNode = $("<button></button>");
     $(newNode).addClass("item");
-    $(newNode).html($.trim(element.innerHTML));
+
+    var html = new XMLSerializer().serializeToString($(element)[0]);
+
+    $(newNode).html($.trim(element.textContent));
 
     $(newNode).on('click', function () {
         loadPage(element.id, "page");
@@ -120,7 +123,18 @@ function imageNode(element) {
                 // running offline
                 if (location.hostname == "") {
                     // TODO: catch other types of images
-                    newSrc = "./Content/images/" + src + ".jpg";
+
+                    newSrc = "./Content/images/" + src;
+                    switch (element.attributes["type"].value) {
+                        default:
+                        case "jpg":
+                            newSrc += ".jpg";
+                            break;
+                        case "png":
+                            newSrc += ".png";
+                            break;
+
+                    }
                 } else {
                     newSrc = URL_Content + "ImageManager.ashx?id=" + src;
                 }
@@ -143,7 +157,10 @@ function textNode(element) {
     var newNode = $("<div></div>");
     $(newNode).addClass("item");
     $(newNode).addClass('inner-text');
-    $(newNode).html($.trim(element.innerHTML));
+
+    var html = new XMLSerializer().serializeToString($(element)[0]);
+
+    $(newNode).html($.trim(html));
     //$(newNode).html($(element).html().trim());
 
     return newNode;

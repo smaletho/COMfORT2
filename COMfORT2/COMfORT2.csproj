@@ -231,6 +231,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\View\ChooseBook.cshtml" />
     <Content Include="Views\Default\ChooseDownloadBook.cshtml" />
+    <Content Include="Views\Build\ListPages.cshtml" />
+    <Content Include="Views\Build\ListBooks.cshtml" />
+    <Content Include="Views\Build\ViewEditor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

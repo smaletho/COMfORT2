@@ -21,11 +21,13 @@
         var URL_Content = '@Url.Content("~/")';
         var xml = $.parseXML(`@Html.Raw(Model.XmlContent)`);
         var URL_UploadAsset = '@Url.Action("UploadAsset")';
-        var URL_ViewAssets = '@Url.Action("ViewAssets", new { id = 0 })';
+        var URL_ViewEditor = '@Url.Action("ViewEditor", new { id = Model.PageId })';
+        var URL_ViewAssets = '@Url.Action("ViewAssets", new { id = Model.PageId })';
         var URL_SavePage = '@Url.Action("SavePage")';
         var URL_GoHome = '@Url.Action("Index", "Default")';
 
         var URL_LoadFile = '@Url.Action("LoadFile", "View")';
+
     </script>
     <script src="~/Content/js/viewer.js"></script>
     <script src="~/Content/js/navigation.js"></script>
@@ -42,13 +44,9 @@
         <div id="content">
             <div id="header">
                 <div id="top-bar">
-                    @using (Html.BeginForm("ReadPage", "Build", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                @Html.TextBoxFor(m => m.File, new { type = "file" })
-                @Html.ValidationMessageFor(m => m.File)
-                <button type="submit">submit</button>
-    }
+                    <div>Page name: <b>@Model.PageName</b></div>
                     <a href="javascript:void(0)" id="shell-assets">view assets</a>
+                    <a href="javascript:void(0)" id="editor">editor</a>
                 </div>
                 <div id="sections">
                     <div id="section-list"></div>
@@ -63,11 +61,13 @@
             </div>
 
             <div id="footer">
-                <button type="button" id="submit-page">Submit</button>
+                @Html.HiddenFor(x => x.PageId)
+                @Html.HiddenFor(x => x.PageName)
+                <button id="submit-page" type="submit">Save Page</button>
             </div>
         </div>
 
-        
+
     </div>
 </body>
 </html>

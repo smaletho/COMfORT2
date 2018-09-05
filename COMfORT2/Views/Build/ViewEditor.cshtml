@@ -1,0 +1,24 @@
+﻿@model COMfORT2.Controllers.PageViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewEditor</title>
+</head>
+<body>
+    @using (Html.BeginForm("ReadPage", "Build", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <label>
+            Page name @Html.TextBoxFor(x => x.PageName)
+        </label>
+        @Html.TextAreaFor(x => x.XmlContent, new { @style="width:800px;height:600px;" })
+        @Html.HiddenFor(x => x.PageId)
+        <button type="submit">submit</button>
+    }
+</body>
+</html>

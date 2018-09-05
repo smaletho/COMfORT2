@@ -7,6 +7,10 @@ function viewerInit() {
         window.open(URL_ViewAssets);
     });
 
+    $("#editor").on('click', function () {
+        window.location = URL_ViewEditor;
+    });
+
     // keep aspect ratio
     maintainAspectRatio();
 
@@ -24,13 +28,21 @@ function viewerInit() {
 
             var email = prompt("Please enter your email address for saving.");
             if (email !== null) {
+
+                if ($("#PageName").val().trim() === "") {
+                    alert("Please enter a page name.");
+                    return false;
+                } 
+
+
                 //.item src
                 var arr = $(".item").map(function () { return $(this).prop('src'); }).get();
 
                 var s = new XMLSerializer();
                 var str = s.serializeToString(xml);
-
-                transmitAction(URL_SavePage, savePageSuccess, savePageFail, "", { xml: str, images: arr, email: email });
+                var pId = $("#PageId").val();
+                var name = $("#PageName").val().trim();
+                transmitAction(URL_SavePage, savePageSuccess, savePageFail, "", { xml: str, images: arr, email: email, pageId: pId, name: name });
             }
         }
     });
@@ -38,7 +50,7 @@ function viewerInit() {
 
 function savePageSuccess(data) {
     alert("Page saved.");
-    window.location = URL_GoHome;
+    
 }
 
 function savePageFail(data) {
@@ -58,7 +70,7 @@ function pageReceived_Render() {
             //var innerPage = $(this).html().trim();
             var innerPage = $.trim(this.textContent);
 
-            if ((innerPage.indexOf('<text>') == -1) && (innerPage.indexOf('</text>') == -1)) {
+            if ((innerPage.indexOf('<text>') === -1) && (innerPage.indexOf('</text>') === -1)) {
                 // this is a normal, empty node
 
                 renderElement(this);

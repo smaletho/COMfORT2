@@ -155,9 +155,14 @@ namespace COMfORT2.Controllers
                                 case FileType.Photo:
                                     switch (f.ContentType)
                                     {
+                                        case "image/jpg":
                                         case "image/jpeg":
                                             fName += ".jpg";
                                             newFileName += "images/i_" + f.FileId.ToString() + ".jpg";
+                                            break;
+                                        case "image/png":
+                                            fName += ".png";
+                                            newFileName += "images/i_" + f.FileId.ToString() + ".png";
                                             break;
                                     }
                                     break;
@@ -194,6 +199,7 @@ namespace COMfORT2.Controllers
 
             try
             {
+                string[] pngList = Directory.GetFiles(sourceDir, "*.png");
                 string[] jpgList = Directory.GetFiles(sourceDir, "*.jpg");
                 string[] zipList = Directory.GetFiles(sourceDir, "*.zip");
                 string[] jsList = Directory.GetFiles(sourceDir, "*.js");
@@ -209,6 +215,14 @@ namespace COMfORT2.Controllers
                     System.IO.File.Delete(f);
                 }
                 foreach (string f in htmlList)
+                {
+                    System.IO.File.Delete(f);
+                }
+                foreach (string f in jpgList)
+                {
+                    System.IO.File.Delete(f);
+                }
+                foreach (string f in pngList)
                 {
                     System.IO.File.Delete(f);
                 }
