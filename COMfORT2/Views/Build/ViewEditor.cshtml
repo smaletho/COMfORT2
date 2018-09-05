@@ -9,6 +9,40 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ViewEditor</title>
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $("form").submit(function () {
+                if (confirm("Would you like to save this page?")) {
+
+                    var email = prompt("Please enter your email address for saving.");
+                    if (email !== null) {
+
+                        if ($("#PageName").val().trim() === "") {
+                            alert("Please enter a page name.");
+                            return false;
+                        }
+
+
+                        var content = $("#XmlContent").val();
+                        var arr = $.parseXML(content);
+
+                        //.item src
+                        //var arr = $(".item").map(function () { return $(this).prop('src'); }).get();
+                        var arr = $(arr).find("image").map(function () {
+                            return this.attributes["source"].value;
+                        }).get();
+
+                        var s = new XMLSerializer();
+                        var str = s.serializeToString($("#XmlContent").val());
+                        var pId = $("#PageId").val();
+                        var name = $("#PageName").val().trim();
+                        transmitAction(URL_SavePage, savePageSuccess, savePageFail, "", { xml: str, images: arr, email: email, pageId: pId, name: name });
+                    }
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     @using (Html.BeginForm("ReadPage", "Build", FormMethod.Post, new { enctype = "multipart/form-data" }))

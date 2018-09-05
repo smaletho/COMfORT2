@@ -125,7 +125,7 @@ function imageNode(element) {
                     // TODO: catch other types of images
 
                     newSrc = "./Content/images/" + src;
-                    switch (element.attributes["type"].value) {
+                    switch (element.attributes["type"]) {
                         default:
                         case "jpg":
                             newSrc += ".jpg";
