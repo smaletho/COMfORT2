@@ -19,7 +19,7 @@ namespace COMfORT2.Migrations
                         PageId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.FileId);
-            AddColumn("dbo.Files", "PageId", c => c.Int(nullable: false));
+            //AddColumn("dbo.Files", "PageId", c => c.Int(nullable: false));
         }
         
         public override void Down()

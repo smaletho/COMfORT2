@@ -162,6 +162,6 @@ namespace COMfORT2
         //public virtual Book GetBook { get; set; }
 
         public int PageId { get; set; }
-        //public virtual Page GetPage { get; set; }
+        public virtual Page GetPage { get; set; }
     }
 }

@@ -56,7 +56,11 @@ namespace COMfORT2.Controllers
 
         public ActionResult ListPages(int id)
         {
-            List<Page> pageList = new List<Page>();
+            PageListModel model = new PageListModel();
+            model.PageList = new List<Page>();
+            model.BookPages = new List<BookPage>();
+
+            //List<Page> pageList = new List<Page>();
             ComfortModel cdb = new ComfortModel();
             if (id == 0)
             {
@@ -69,15 +73,16 @@ namespace COMfORT2.Controllers
                 var usedBookPages = cdb.BookPages.Where(x => pages.Contains(x.PageId)).Select(x => x.PageId).ToList();
 
                 // find all pages that are not in the previous list
-                pageList = cdb.Pages.Where(x => !usedBookPages.Contains(x.PageId)).ToList();
+                model.PageList = cdb.Pages.Where(x => !usedBookPages.Contains(x.PageId)).ToList();
             }
             else
             {
-                var bookPages = cdb.BookPages.Where(x => x.BookId == id).Select(x => x.PageId).ToList();
-                pageList = cdb.Pages.Where(x => bookPages.Contains(x.PageId)).ToList();
+                model.BookPages = cdb.BookPages.Where(x => x.BookId == id).OrderBy(x => x.SortOrder).ToList();
+                List<int> bpId = model.BookPages.Select(x => x.PageId).ToList();
+                model.PageList = cdb.Pages.Where(x => bpId.Contains(x.PageId)).ToList();
             }
             
-            return View(pageList);
+            return View(model);
         }
 
         [HttpPost]
@@ -198,7 +203,10 @@ namespace COMfORT2.Controllers
 
             // check if comatable/etc
             //  use ContentType ("image/jpeg" etc)
-            f.FileType = FileType.Photo;
+            if (f.ContentType.Contains("image"))
+                f.FileType = FileType.Photo;
+            else if (f.ContentType.Contains("video"))
+                f.FileType = FileType.Video;
 
             f.PageId = model.PageId;
 
@@ -347,5 +355,11 @@ namespace COMfORT2.Controllers
         public string XmlContent { get; set; }
         public int PageId { get; set; }
         public string PageName { get; set; }
+    }
+
+    public class PageListModel
+    {
+        public List<Page> PageList { get; set; }
+        public List<BookPage> BookPages { get; set; }
     }
 }

@@ -42,6 +42,8 @@ function renderElement(element) {
         case "button":
             newNode = buttonNode(element);
             break;
+        case "video":
+            newNode = videoNode(element);
     }
 
 
@@ -82,6 +84,51 @@ function renderElement(element) {
     }
     
     $("#page-content").append(newNode);
+}
+
+function videoNode(element) {
+    var newNode = $("<video></video>");
+    $(newNode).addClass("item");
+    $(newNode).prop('controls', 'controls');
+
+    for (var i = 0; i < element.attributes.length; i++) {
+        switch (element.attributes[i].nodeName.toLowerCase()) {
+            case "source": {
+                // "i_{id}"
+                // find the associated file
+                var src = element.attributes[i].value;
+                var newSrc = ""
+
+                // running offline
+                if (location.hostname == "") {
+                    // TODO: catch other types of images
+
+                    newSrc = "./Content/images/" + src;
+                    switch (element.attributes["type"]) {
+                        default:
+                        case "jpg":
+                            newSrc += ".jpg";
+                            break;
+                        case "png":
+                            newSrc += ".png";
+                            break;
+                        case "mp4":
+                            newSrc += ".mp4";
+                    }
+                } else {
+                    newSrc = URL_Content + "ImageManager.ashx?id=" + src;
+                }
+
+
+
+                $(newNode).prop('src', newSrc);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+    return newNode;
 }
 
 function buttonNode(element) {

@@ -10,49 +10,62 @@
     <meta name="viewport" content="width=device-width" />
     <title>ViewEditor</title>
     <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/js/shared.js"></script>
     <script>
+        var URL_SavePage = '@Url.Action("SavePage")';
+        var URL_ViewPage = '@Url.Action("ViewPage", new { id = Model.PageId })';
+
+        function savePageSuccess(data) {
+            alert("Page saved.");
+            window.location = URL_ViewPage;
+        }
+
+        function savePageFail(data) {
+            alert("Fail :( Check the console");
+            console.log('fail', data);
+        }
         $(function () {
-            $("form").submit(function () {
-                if (confirm("Would you like to save this page?")) {
-
-                    var email = prompt("Please enter your email address for saving.");
-                    if (email !== null) {
-
-                        if ($("#PageName").val().trim() === "") {
-                            alert("Please enter a page name.");
-                            return false;
-                        }
 
 
-                        var content = $("#XmlContent").val();
-                        var arr = $.parseXML(content);
+            $("#save-page").on('click', function () {
 
-                        //.item src
-                        //var arr = $(".item").map(function () { return $(this).prop('src'); }).get();
-                        var arr = $(arr).find("image").map(function () {
-                            return this.attributes["source"].value;
-                        }).get();
+                var email = prompt("Please enter your email address for saving.");
+                if (email !== null) {
 
-                        var s = new XMLSerializer();
-                        var str = s.serializeToString($("#XmlContent").val());
-                        var pId = $("#PageId").val();
-                        var name = $("#PageName").val().trim();
-                        transmitAction(URL_SavePage, savePageSuccess, savePageFail, "", { xml: str, images: arr, email: email, pageId: pId, name: name });
+                    if ($("#PageName").val().trim() === "") {
+                        alert("Please enter a page name.");
+                        return false;
                     }
+
+
+                    var content = $("#XmlContent").val();
+                    var arr = $.parseXML(content);
+
+                    //.item src
+                    //var arr = $(".item").map(function () { return $(this).prop('src'); }).get();
+                    var arr = $(arr).find("image").map(function () {
+                        return this.attributes["source"].value;
+                    }).get();
+
+                    //var s = new XMLSerializer();
+                    var str = content;//s.serializeToString($("#XmlContent").val());
+                    var pId = $("#PageId").val();
+                    var name = $("#PageName").val().trim();
+                    transmitAction(URL_SavePage, savePageSuccess, savePageFail, "", { xml: str, images: arr, email: email, pageId: pId, name: name });
                 }
+                
             });
         });
     </script>
 </head>
 <body>
-    @using (Html.BeginForm("ReadPage", "Build", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
+
         <label>
             Page name @Html.TextBoxFor(x => x.PageName)
         </label>
         @Html.TextAreaFor(x => x.XmlContent, new { @style="width:800px;height:600px;" })
         @Html.HiddenFor(x => x.PageId)
-        <button type="submit">submit</button>
-    }
+        <button type="button" id="save-page">submit</button>
+    
 </body>
 </html>

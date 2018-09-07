@@ -21,6 +21,7 @@
         var URL_Content = '@Url.Content("~/")';
         var xml = $.parseXML(`@Html.Raw(Model.XmlContent)`);
         var URL_UploadAsset = '@Url.Action("UploadAsset")';
+        var URL_ViewPage = '@Url.Action("ViewPage", new { id = Model.PageId })';
         var URL_ViewEditor = '@Url.Action("ViewEditor", new { id = Model.PageId })';
         var URL_ViewAssets = '@Url.Action("ViewAssets", new { id = Model.PageId })';
         var URL_SavePage = '@Url.Action("SavePage")';

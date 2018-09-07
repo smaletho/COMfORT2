@@ -4,19 +4,21 @@
 <head>
     <style>
         img {
-            display:table;
-            margin:5px auto;
+            display: table;
+            margin: 5px auto;
         }
+
         td {
             padding: 10px;
             border-bottom: 1px solid black;
             border-collapse: collapse;
         }
+
         .dimensions {
-            padding:5px;
-            font-size:8pt;
-            font-style:italic;
-            text-align:center;
+            padding: 5px;
+            font-size: 8pt;
+            font-style: italic;
+            text-align: center;
         }
     </style>
     <script src="~/Content/js/jquery-3.3.1.min.js"></script>
@@ -49,41 +51,48 @@
         </tr>
         @foreach (var file in Model.FileList)
         {
-            decimal d_fSize = ((decimal)file.Content.Length / (decimal)100000);
+            decimal d_fSize = ((decimal)file.Content.Length / (decimal)1000000);
             string id = "";
             string fileSize = "";
             if (file.FileType == FileType.Photo)
             {
                 id = "i_" + file.FileId;
             }
+            else if (file.FileType == FileType.Video)
+            {
+                id = "v_" + file.FileId;
+            }
             if (file.Content != null)
             {
-                fileSize = d_fSize.ToString("#.##") + " MB";
+                fileSize = d_fSize.ToString("0.##") + " MB";
             }
             else
             {
                 fileSize = "n/a";
             }
 
-        <tr>
-            <td>@id</td>
-            <td>
-                <a target="_blank" href="../../ImageManager.ashx?id=@id">
-                    <img src="../../ImageManager.ashx?id=@id" height="40" width="40" />
-                </a>
-                <div class="dimensions"></div>
-            </td>
-            <td>
-                <a target="_blank" href="../../ImageManager.ashx?id=@id">
-                    @file.FileName
-                </a>
-            </td>
-            <td>@fileSize</td>
-            <td>
-                @Html.ActionLink("delete", "DeleteFile", new { id=file.FileId })
-            </td>
-        </tr>
-            
+            <tr>
+                <td>@id</td>
+                <td>
+                    <a target="_blank" href="../../ImageManager.ashx?id=@id">
+                        @if (file.FileType == FileType.Photo)
+                        {
+                            <img src="../../ImageManager.ashx?id=@id" height="40" width="40" />
+                        }
+                    </a>
+                    <div class="dimensions"></div>
+                </td>
+                <td>
+                    <a target="_blank" href="../../ImageManager.ashx?id=@id">
+                        @file.FileName
+                    </a>
+                </td>
+                <td>@fileSize</td>
+                <td>
+                    @Html.ActionLink("delete", "DeleteFile", new { id = file.FileId })
+                </td>
+            </tr>
+
         }
     </table>
 

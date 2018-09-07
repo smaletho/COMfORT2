@@ -1,4 +1,4 @@
-﻿@model List<COMfORT2.Page>
+﻿@model COMfORT2.Controllers.PageListModel
 @{
     Layout = null;
 }
@@ -14,7 +14,7 @@
 
 </head>
 <body>
-    <table style="display:table;margin:0 auto"> 
+    <table style="display:table;margin:0 auto">
         <tr>
             <th>Id</th>
             <th>Title</th>
@@ -32,22 +32,43 @@
                 </a>
             </td>
         </tr>
-        @foreach (var page in Model.OrderByDescending(x => x.ModifyDate))
+        @if (Model.BookPages.Count == 0)
         {
-            <tr>
-                <td>
-                    <a href="@Url.Action("ViewPage", new { id = page.PageId })">
-                        p_@page.PageId
-                    </a>
-                </td>
-                <td>@page.Title</td>
-                <td>@page.CreatedBy</td>
-                <td>@page.CreateDate.ToShortDateString()</td>
-                <td>@page.ModifiedBy</td>
-                <td>@page.ModifyDate.ToShortDateString()</td>
-                <td>@page.Type</td>
-            </tr>
+            foreach (var page in Model.PageList)
+            {
+                @GetRow(page)
+            }
         }
+        else
+        {
+            foreach (var bp in Model.BookPages.OrderBy(x => x.ChapterId).ThenBy(x => x.SortOrder))
+            {
+                @GetRow(bp.GetPage)
+            }
+        }
+
     </table>
 </body>
 </html>
+
+
+@helper GetRow(COMfORT2.Page page)
+    {
+
+        <tr>
+            <td>
+                <a href="@Url.Action("ViewPage", new { id = page.PageId })">
+                    p_@page.PageId
+                </a>
+            </td>
+            <td>@page.Title</td>
+            <td>@page.CreatedBy</td>
+            <td>@page.CreateDate.ToShortDateString()</td>
+            <td>@page.ModifiedBy</td>
+            <td>@page.ModifyDate.ToShortDateString()</td>
+            <td>@page.Type</td>
+        </tr>
+
+
+
+}
