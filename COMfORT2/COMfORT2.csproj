@@ -208,10 +208,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808241854570_Files.cs" />
-    <Compile Include="Migrations\201808241854570_Files.Designer.cs">
-      <DependentUpon>201808241854570_Files.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ComfortModel.cs" />
     <Compile Include="Models\FileType.cs" />
@@ -244,11 +240,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ZipDump\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808241854570_Files.resx">
-      <DependentUpon>201808241854570_Files.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
