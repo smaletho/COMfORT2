@@ -1,10 +1,39 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.WindowTitle = "AMOS: Management Menu";
+    Layout = "~/Views/Shared/_ManagementBlankLayout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/fonts/FiraSans/Fonts.css">
+    <link rel="stylesheet" href="~/Content/css/Management/MainMenu.css?v=0">
 }
 
-<h2>Index</h2>
+<page-main>
 
+    <title-1>A M O S</title-1>
+    <title-2><b>A</b>utonomous <b>M</b>edical <b>O</b>fficer <b>S</b>upport</title-2>
+
+    <menu-item data-url="@Url.Action("ChooseBook", new { Controller = "View" })">
+        <menu-item-label>Present :</menu-item-label>
+        <menu_item-description>Present a training book to an experiment test subject, or for demonstration purposes.</menu_item-description>
+    </menu-item>
+
+    <menu-item data-url="@Url.Action("ListBooks", "Build")">
+        <menu-item-label>Configure :</menu-item-label>
+        <menu_item-description>Create and compile customized training books targeted for the needs of specific experiments, or specific test subjects.</menu_item-description>
+    </menu-item>
+
+    <menu-item data-url="@Url.Action("ChooseDownloadBook")">
+        <menu-item-label>Export :</menu-item-label>
+        <menu_item-description>Download a self-contained training book that can be used in remote locations without internet access.</menu_item-description>
+    </menu-item>
+
+</page-main>
+
+
+
+
+@*<h2>Index</h2>
 
 @Html.ActionLink("Read a book", "ChooseBook", new { Controller = "View" })
 <br />
@@ -17,28 +46,11 @@
 @Html.ActionLink("Edit a book", "ListBooks", "Build")
 <br />
 <br />
-<br />
-@*@Html.ActionLink("Create a new page", "Index", "Build")*@
+<br />*@
 
 
-
-
-
-@*@Html.ActionLink("go to book 1", "Index", new { Controller = "View", id = 1 })
-
-
-
-    <br />
-    <br />
-    <br />
-    @Html.ActionLink("go upload", "UploadFile", "View")
-
-    <br />
-    <br />
-    <br />
-    @Html.ActionLink("go zip", "ZipTest")
-    <br />
-    <br />
-    <br />
-    @Html.ActionLink("viewer", "Index", "Build")*@
-
+@section Scripts{
+    <script>
+    </script>
+    <script type="text/javascript" src="~/Content/js/Management/MainMenu.js?v=0"></script>
+}

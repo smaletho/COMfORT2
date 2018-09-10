@@ -1,0 +1,10 @@
+﻿body{font-family:Fira Sans;background-color:#aaa;}
+page-main{display:block;width:600px;margin:36px auto 36px auto;}
+title-1{display:block;font-weight:100;font-size:120px;text-align:center;color:#666;}
+title-2{display:block;font-weight:600;font-size:24px;text-align:center;color:#666;margin-bottom:48px;}
+title-2 b{font-weight:800;color:#ddd;font-size:30px;}
+menu-item{display:block;border:2px solid #666;background-color:#fff; padding:16px;margin:24px 0px; border-radius:6px;cursor:pointer; }
+menu-item:hover{background-color:#ffd;}
+.menu-item-select{background-color:#666 !important;color:#ccc;}
+menu-item-label{display:block;font-weight:700;font-size:20px;margin-bottom:8px;}
+menu-item-description{display:block;font-family:Fira Sans Condensed;font-weight:500;font-size:16px;}

@@ -103,6 +103,11 @@
   <ItemGroup>
     <Content Include="Content\css\base.css" />
     <Content Include="Content\css\EditBook.css" />
+    <Content Include="Content\css\Management\ChooseBook.css" />
+    <Content Include="Content\css\Management\ChooseDownloadBook.css" />
+    <Content Include="Content\css\Management\ListBooks.css" />
+    <Content Include="Content\css\Management\MainMenu.css" />
+    <Content Include="Content\css\Management\ManagementShellLayout.css" />
     <Content Include="Content\css\pageContent.css" />
     <Content Include="Content\css\themes.css" />
     <Content Include="Content\css\viewer.css" />
@@ -117,6 +122,11 @@
     <Content Include="Content\js\base.js" />
     <Content Include="Content\js\jquery-3.3.1.min.js" />
     <Content Include="Content\js\loading.js" />
+    <Content Include="Content\js\Management\ChooseBook.js" />
+    <Content Include="Content\js\Management\ChooseDownloadBook.js" />
+    <Content Include="Content\js\Management\ListBooks.js" />
+    <Content Include="Content\js\Management\MainMenu.js" />
+    <Content Include="Content\js\Management\ManagementShellLayout.js" />
     <Content Include="Content\js\navigation.js" />
     <Content Include="Content\js\offline.js" />
     <Content Include="Content\js\shared.js" />
@@ -235,6 +245,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\normalize-3.0.2.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -274,6 +285,8 @@
     <Content Include="Views\Build\ListBooks.cshtml" />
     <Content Include="Views\Build\ViewEditor.cshtml" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <Content Include="Views\Shared\_ManagementShellLayout.cshtml" />
+    <Content Include="Views\Shared\_ManagementBlankLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

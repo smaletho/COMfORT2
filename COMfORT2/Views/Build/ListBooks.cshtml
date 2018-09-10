@@ -1,63 +1,64 @@
 ﻿@model List<COMfORT2.Book>
 @{
-    Layout = null;
+    ViewBag.WindowTitle = "AMOS: Configure Books";
+    Layout = "~/Views/Shared/_ManagementShellLayout.cshtml";
+    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+    Response.Cache.SetNoStore();
+}
+@section Styles{
+    <link rel="stylesheet" href="~/fonts/FiraSans/Fonts.css">
+    <link rel="stylesheet" href="~/Content/css/Management/ListBooks.css?v=0">
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ListBooks</title>
-</head>
-<body>
-    <table style="margin:0 auto">
+<table style="margin:0 auto">
+    <tr>
+        <th>Name</th>
+        <th>Version</th>
+        <th>Modified</th>
+        <th>Created</th>
+        <th>Published?</th>
+    </tr>
+    <tr>
+        <td colspan="5" style="text-align:center">
+            <a href="@Url.Action("ListPages", new { id = 0 })">new book</a>
+        </td>
+    </tr>
+    @foreach (var book in Model.OrderByDescending(x => x.ModifyDate))
+    {
         <tr>
-            <th>Name</th>
-            <th>Version</th>
-            <th>Modified</th>
-            <th>Created</th>
-            <th>Published?</th>
-        </tr>
-        <tr>
-            <td colspan="5" style="text-align:center">
-                <a href="@Url.Action("ListPages", new { id = 0 })">new book</a>
+            <td>
+                <a href="@Url.Action("ListPages", new { id = book.BookId })">
+                    @book.Name
+                </a>
             </td>
+            <td>@book.Version</td>
+            <td>
+                <div>@book.ModifiedBy</div>
+                <div>@book.ModifyDate.ToShortDateString()</div>
+            </td>
+            <td>
+                <div>@book.CreatedBy</div>
+                <div>@book.CreateDate.ToShortDateString()</div>
+            </td>
+
+
+            @if (book.Published)
+            {
+                <td>yes</td>
+            }
+            else
+            {
+                <td>no</td>
+            }
+
         </tr>
-
-        @foreach (var book in Model.OrderByDescending(x => x.ModifyDate))
-        {
-            <tr>
-                <td>
-                    <a href="@Url.Action("ListPages", new { id = book.BookId })">
-                        @book.Name
-                    </a>
-                </td>
-                <td>@book.Version</td>
-                <td>
-                    <div>@book.ModifiedBy</div>
-                    <div>@book.ModifyDate.ToShortDateString()</div>
-                </td>
-                <td>
-                    <div>@book.CreatedBy</div>
-                    <div>@book.CreateDate.ToShortDateString()</div>
-                </td>
+    }
+</table>
 
 
-
-
-                @if (book.Published)
-                {
-                    <td>yes</td>
-                }
-                else
-                {
-                    <td>no</td>
-                }
-
-
-            </tr>
-        }
-    </table>
-</body>
-</html>
+@section Scripts{
+    <script>
+    </script>
+    <script type="text/javascript" src="~/Content/js/Management/ListBooks.js?v=0"></script>
+}
