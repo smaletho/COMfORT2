@@ -8,46 +8,171 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>ListPages</title>
+    <title>List Pages</title>
+    <link href="~/fonts/FiraSans/Fonts.css" rel="stylesheet" />
+
+    <link href="~/Content/css/themes.css" rel="stylesheet" />
+    <link href="~/Content/css/base.css" rel="stylesheet" />
+    <link href="~/Content/css/EditBook.css" rel="stylesheet" />
 
 
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/draggable.css" rel="stylesheet" />
 
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".modules").sortable({
+                revert: true,
+                start: function (event, ui) {
+                    $(".section").hide();
+                },
+                stop: function (event, ui) {
+                    $(".section").show();
+                },
+                placeholder: "ui-state-highlight"
+            });
+            $(".sections").sortable({
+                revert: true,
+                start: function (event, ui) {
+                    $(".chapter").hide();
+                },
+                stop: function (event, ui) {
+                    $(".chapter").show();
+                },
+                placeholder: "ui-state-highlight"
+            });
+            $(".chapters").sortable({
+                revert: true,
+                start: function (event, ui) {
+                    $(".page").hide();
+                },
+                stop: function (event, ui) {
+                    $(".page").show();
+                },
+                placeholder: "ui-state-highlight"
+            });
+            $(".pages").sortable({
+                revert: true,
+                start: function (event, ui) {
+                    //$(".section").hide();
+                },
+                stop: function (event, ui) {
+                    //$(".section").show();
+                },
+                placeholder: "ui-state-highlight"
+            });
+
+
+            $(".modules").disableSelection();
+            $(".sections").disableSelection();
+            $(".chapters").disableSelection();
+            $(".pages").disableSelection();
+        });
+    </script>
 </head>
 <body>
-    <table style="display:table;margin:0 auto">
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Created By</th>
-            <th>Create Date</th>
-            <th>Modified By</th>
-            <th>Modify Date</th>
-            <th>Type</th>
-            <th></th>
-        </tr>
-        <tr style="text-align:center">
-            <td colspan="8">
-                <a href="@Url.Action("ViewPage", new { id = 0 })">
-                    new page
-                </a>
-            </td>
-        </tr>
-        @if (Model.BookPages.Count == 0)
+    @{string name = Model.GetBook.Name ?? "New Book";}
+    <input type="text" value="@name">
+    <ul class="modules">
+        @foreach (var mod in Model.Modules.OrderBy(x => x.SortOrder).ToList())
         {
-            foreach (var page in Model.PageList)
-            {
-                @GetRow(page)
-            }
-        }
-        else
-        {
-            foreach (var bp in Model.BookPages.OrderBy(x => x.ChapterId).ThenBy(x => x.SortOrder))
-            {
-                @GetRow(bp.GetPage)
-            }
+            string theme = "theme" + mod.Theme;
+            <li class="module">
+                <div class="module-head @theme">
+                    <div class="color-block">
+                        <div class="dark-box">
+                            <img src="~/Content/images/left-mask.png" width="20" height="40" />
+                        </div>
+                        <div class="light-box">
+                            <img src="~/Content/images/right-mask.png" width="20" height="40" />
+                        </div>
+                    </div>
+                    <span id="book-name"></span>
+                    <span id="module-name"><input type="text" value="@mod.Name" /></span>
+                </div>
+                
+                <ul class="sections">
+                    @foreach (var sec in Model.Sections.Where(x => x.ModuleId == mod.ModuleId).OrderBy(x => x.SortOrder).ToList())
+                    {
+                        <li class="section">
+                            <div class="something">S</div>
+                            <input type="text" value="@sec.Name" />
+                            <ul class="chapters">
+                                @foreach (var cha in Model.Chapters.Where(x => x.SectionId == sec.SectionId).OrderBy(x => x.SortOrder).ToList())
+                                {
+                                    <li class="chapter">
+                                        <div class="something">C</div>
+                                        <input type="text" value="@cha.Name" />
+                                        <ul class="pages">
+                                            @foreach (var pa in Model.BookPages.Where(x => x.ChapterId == cha.ChapterId).OrderBy(x => x.SortOrder).ToList())
+                                            {
+                                                <li class="page">
+                                                    <a target="_blank" href="@Url.Action("ViewPage", new { id = pa.PageId })">edit</a>
+                                                    <input type="text" value="@pa.GetPage.Title" />
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </li>
         }
 
-    </table>
+
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<table style="display:table;margin:0 auto">
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Created By</th>
+                <th>Create Date</th>
+                <th>Modified By</th>
+                <th>Modify Date</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+            <tr style="text-align:center">
+                <td colspan="8">
+                    <a href="@Url.Action("ViewPage", new { id = 0 })">
+                        new page
+                    </a>
+                </td>
+            </tr>
+            @if (Model.BookPages.Count == 0)
+            {
+                foreach (var page in Model.PageList)
+                {
+                    @GetRow(page)
+                }
+            }
+            else
+            {
+                foreach (var bp in Model.BookPages.OrderBy(x => x.ChapterId).ThenBy(x => x.SortOrder))
+                {
+                    @GetRow(bp.GetPage)
+                }
+            }
+
+        </table>*@
 </body>
 </html>
 

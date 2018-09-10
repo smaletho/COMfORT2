@@ -81,6 +81,10 @@ function firstLoadInit() {
         }, 1000);
     });
 
+    $("#exit-button").on('click', function () {
+        window.localStorage.clear();
+        location.reload();
+    });
 
     $("#menu-close").on('click', closeNav);
     $("#menu-open").on('click', openNav);

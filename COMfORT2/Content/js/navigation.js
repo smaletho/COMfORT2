@@ -68,12 +68,34 @@ function previousPage() {
         }
     }
 }
+
+function goToTheBeginning() {
+    var newId = $(ConfigXml).find('page').first();
+
+    loadPage(newId[0].attributes["id"].value, "page");
+}
+
 function loadPage(id, type) {
     if (typeof id === "undefined") {
-        // load the first page of the module
-        var newId = $(ConfigXml).find('page').first();
+        // first, check the user tracker for an existing user
+        if (typeof (UserTracker.CurrentLocation) === "undefined") {
+            // load the first page of the module
+            goToTheBeginning();
+        } else {
+            // someone already started this book.
+            // is it the same book?
+            var book = $(ConfigXml).find('page').first();
+            if (book[0].attributes["id"].value == UserTracker.CurrentLocation.Book) {
+                loadPage(UserTracker.CurrentLocation.Page, "page");
+            } else {
+                // not the same book. remove the object
+                window.localStorage.clear();
+                goToTheBeginning();
+            }
+            
+        }
 
-        loadPage(newId[0].attributes["id"].value, "page");
+        
     } else {
 
         var targetPage;
@@ -103,7 +125,7 @@ function loadPage(id, type) {
             }
         });
         
-        
+        $(".dot[data-page=" + id).addClass("visited");
         
         // if page has content
         $("#page-content").empty();
@@ -112,10 +134,11 @@ function loadPage(id, type) {
         var previousLocation = CurrentLocation;
         CurrentLocation = targetPage;
         addUserNavigation(previousLocation, CurrentLocation, "");
+        UpdateCurrentLocation(CurrentLocation);
 
         closeNav();
         updateNavigation(previousLocation);
-
+        
         $(targetPage.content).contents().each(function recursivePageLoad() {
 
             if (!blankTextNode(this)) {
@@ -210,7 +233,6 @@ function selectPageDots() {
     $(".dot").removeClass("selected");
 
     $(".dot[data-page='" + CurrentLocation.Page + "']").addClass("selected");
-    // set "viewed" pages as darkened
 }
 
 function updateTableOfContents() {
@@ -302,7 +324,15 @@ function populateMenus() {
 
         var currentSection = "";
         $(mod).find("page").each(function (k, v) {
+            
             var dot = $("<div data-page='" + this.attributes.id.value + "' class='dot'></div>");
+
+            // check visited pages
+            if (typeof (UserTracker.VisitedPages) !== "undefined") {
+                if (UserTracker.VisitedPages.indexOf(this.attributes.id.value) != -1)
+                    $(dot).addClass("visited");
+            }
+
             $(dot).html(k + 1);
             if ($(this).closest("section").prop("id") !== currentSection) {
                 $(dot).addClass('leftborder');

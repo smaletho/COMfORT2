@@ -1,0 +1,92 @@
+﻿body {
+    display: table;
+    margin: 0 auto;
+    background-color: white;
+    overflow: auto;
+    font-family: Fira Sans;
+}
+
+input {
+    font-family: Fira Sans;
+}
+
+
+
+.modules {
+    display: table;
+}
+
+.module {
+    display: table;
+    background-color: lightcoral;
+    padding: 20px;
+}
+
+    .module .module-head {
+        background-color: white;
+        overflow: auto;
+        height: 45px;
+        padding: 10px;
+    }
+
+    .module input {
+        float: left;
+    }
+
+.sections {
+    display: table;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+.section {
+    display: table;
+    margin-top: 20px;
+    background-color: lightblue;
+    padding: 20px;
+}
+
+    .section input {
+        float: left;
+    }
+
+.chapters {
+    display: table;
+    margin-top: 50px;
+}
+
+.chapter {
+    display: table;
+    margin-top: 10px;
+    margin-left: 50px;
+    background-color: lightgreen;
+    padding: 20px;
+}
+
+    .chapter input {
+        float: left;
+    }
+
+.pages {
+    display: table;
+    margin-top: 50px;
+}
+
+.page {
+    display: table;
+    margin-left: 50px;
+    background-color: lightcyan;
+    padding: 20px;
+    margin-top:10px;
+}
+
+    .page input {
+        float: left;
+    }
+
+.something {
+    float: left;
+    border: 1px solid;
+    padding: 5px;
+    font-weight: bold;
+}

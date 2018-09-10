@@ -27,6 +27,29 @@ function renderInit() {
         $("#definitionWindow").css('left', '0');
         $("#definitionWindow").text('');
     });
+
+    switch (CurrentLocation.content[0].attributes["type"].value) {
+        case "quiz":
+            quizInit();
+            break;
+    }
+}
+
+function quizInit() {
+    $(".quiz-submit").on('click', function () {
+        var answer = $('input[name=quiz]:checked').val();
+        if (typeof(answer) === "undefined") {
+            alert("Please select an answer.");
+        }
+        else if (answer == $("input[type=radio]").data('answer')) {
+            alert("Correct!");
+            $(".post-quiz").hide();
+        } else {
+            alert("Wrong!");
+            $(".post-quiz").hide();
+        }
+    });
+
 }
 
 function renderElement(element) {
@@ -138,19 +161,30 @@ function buttonNode(element) {
     var html = new XMLSerializer().serializeToString($(element)[0]);
 
     $(newNode).html($.trim(element.textContent));
+    
+    
 
-    $(newNode).on('click', function () {
-        loadPage(element.id, "page");
-    });
+    if (element.classList.length == 0) {
+        $(newNode).on('click', function () {
+            loadPage(element.id, "page");
+        });
+    } else {
+        for (var i = 0; i < element.classList.length; i++) {
+            switch (element.classList[i]) {
+                case "quiz-submit": {
 
-    for (var i = 0; i < element.attributes.length; i++) {
-        switch (element.attributes[i].nodeName.toLowerCase()) {
-            case "": {
-                
-                break;
+                    break;
+                }
+                default:
+                    $(newNode).on('click', function () {
+                        loadPage(element.id, "page");
+                    });
+                    break;
             }
         }
     }
+
+    
 
     return newNode;
 }

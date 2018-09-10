@@ -227,6 +227,7 @@ namespace COMfORT2.Controllers
 
                 // configXml.DocumentElement --> book
                 XmlElement root = this.ConfigXml.CreateElement("book");
+                root.SetAttribute("id", "b_" + book.BookId);
                 root.SetAttribute("name", book.Name);
                 root.SetAttribute("version", book.Version);
                 root.SetAttribute("author", book.CreatedBy);
@@ -282,16 +283,14 @@ namespace COMfORT2.Controllers
 
                                     PageContentItem newPage = new PageContentItem();
                                     newPage.Chapter = "c_" + chapterCount;
-
-
-
-
+                                    
                                     newPage.content = foundPage.PageContent;
 
 
                                     newPage.Module = "m_" + moduleCount;
                                     newPage.Page = "p_" + foundPage.PageId;
                                     newPage.Section = "s_" + sectionCount;
+                                    newPage.Book = "b_" + book.BookId;
 
                                     this.PageContent.Add(newPage);
                                 }
@@ -314,6 +313,7 @@ namespace COMfORT2.Controllers
 
         public class PageContentItem
         {
+            public string Book { get; set; }
             public string Module { get; set; }
             public string Section { get; set; }
             public string Chapter { get; set; }

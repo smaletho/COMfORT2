@@ -404,6 +404,11 @@ html {
     /*padding-top: 2px;*/
     margin-left: 150px;
 }
+#exit-button {
+    position:absolute;
+    right:20px;
+    top:10px;
+}
 .color-block{
     height:40px;
     width:40px;
@@ -502,6 +507,9 @@ html {
     .dot.selected{
         background-color:black;
         color:white;
+    }
+    .dot.visited {
+        background-color:gray;
     }
 
 .dot-sect {

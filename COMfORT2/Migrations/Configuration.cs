@@ -79,9 +79,7 @@ namespace COMfORT2.Migrations
                 new Chapter() { ChapterId = 12, Name = "Bladder", SectionId = 4, SortOrder = 30 },
                 new Chapter() { ChapterId = 13, Name = "Quiz", SectionId = 5, SortOrder = 10 },
                 new Chapter() { ChapterId = 14, Name = "Scanning Reference", SectionId = 6, SortOrder = 10 },
-                new Chapter() { ChapterId = 15, Name = "Troubleshooting", SectionId = 6, SortOrder = 20 },
-                new Chapter() { ChapterId = 16, Name = "Glossary", SectionId = 6, SortOrder = 30 },
-                new Chapter() { ChapterId = 17, Name = "US Keyboard", SectionId = 6, SortOrder = 40 }
+                new Chapter() { ChapterId = 15, Name = "Troubleshooting", SectionId = 6, SortOrder = 20 }
                 );
 
             

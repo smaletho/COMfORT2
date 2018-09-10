@@ -56,31 +56,8 @@ namespace COMfORT2.Controllers
 
         public ActionResult ListPages(int id)
         {
-            PageListModel model = new PageListModel();
-            model.PageList = new List<Page>();
-            model.BookPages = new List<BookPage>();
-
-            //List<Page> pageList = new List<Page>();
-            ComfortModel cdb = new ComfortModel();
-            if (id == 0)
-            {
-                // must find all pages not associated with a book
-
-                // get all pages
-                var pages = cdb.Pages.Select(x => x.PageId).ToList();
-
-                // get all BookPages that contain these pages
-                var usedBookPages = cdb.BookPages.Where(x => pages.Contains(x.PageId)).Select(x => x.PageId).ToList();
-
-                // find all pages that are not in the previous list
-                model.PageList = cdb.Pages.Where(x => !usedBookPages.Contains(x.PageId)).ToList();
-            }
-            else
-            {
-                model.BookPages = cdb.BookPages.Where(x => x.BookId == id).OrderBy(x => x.SortOrder).ToList();
-                List<int> bpId = model.BookPages.Select(x => x.PageId).ToList();
-                model.PageList = cdb.Pages.Where(x => bpId.Contains(x.PageId)).ToList();
-            }
+            PageListModel model = new PageListModel(id);
+            
             
             return View(model);
         }
@@ -359,7 +336,54 @@ namespace COMfORT2.Controllers
 
     public class PageListModel
     {
+        public PageListModel() { }
+        public PageListModel(int bookId)
+        {
+            this.PageList = new List<Page>();
+            this.BookPages = new List<BookPage>();
+
+            //List<Page> pageList = new List<Page>();
+            ComfortModel cdb = new ComfortModel();
+            if (bookId == 0)
+            {
+                // must find all pages not associated with a book
+
+                // get all pages
+                var pages = cdb.Pages.Select(x => x.PageId).ToList();
+
+                // get all BookPages that contain these pages
+                var usedBookPages = cdb.BookPages.Where(x => pages.Contains(x.PageId)).Select(x => x.PageId).ToList();
+
+                // find all pages that are not in the previous list
+                this.PageList = cdb.Pages.Where(x => !usedBookPages.Contains(x.PageId)).ToList();
+
+                this.Modules = new List<Module>();
+                this.Sections = new List<Section>();
+                this.Chapters = new List<Chapter>();
+                this.GetBook = new Book();
+            }
+            else
+            {
+                this.BookPages = cdb.BookPages.Where(x => x.BookId == bookId).OrderBy(x => x.SortOrder).ToList();
+                List<int> bpId = this.BookPages.Select(x => x.PageId).ToList();
+                this.PageList = cdb.Pages.Where(x => bpId.Contains(x.PageId)).ToList();
+
+                this.GetBook = cdb.Books.Where(x => x.BookId == bookId).FirstOrDefault();
+
+                this.Modules = cdb.Modules.Where(x => x.BookId == bookId).ToList();
+                var moduleIdList = this.Modules.Select(x => x.ModuleId).ToList();
+
+                this.Sections = cdb.Sections.Where(x => moduleIdList.Contains(x.ModuleId)).ToList();
+                var sectionIdList = this.Sections.Select(x => x.SectionId).ToList();
+
+                this.Chapters = cdb.Chapters.Where(x => sectionIdList.Contains(x.SectionId)).ToList();
+            }
+        }
         public List<Page> PageList { get; set; }
         public List<BookPage> BookPages { get; set; }
+        public Book GetBook { get; set; }
+        public List<Section> Sections { get; set; }
+        public List<Module> Modules { get; set; }
+        public List<Chapter> Chapters { get; set; }
     }
 }

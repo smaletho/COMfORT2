@@ -1,22 +1,31 @@
 ﻿var UserTracker = {
     Email: null,
-    ConfigXml: null,
-    PageContents: null,
     CurrentLocation: null,
     QuizResponses: null,
     SurveyResponses: null,
-    ActivityTracking: []
+    StartTime: null,
+    ActivityTracking: [],
+    VisitedPages: []
 };
 
 function initTracking() {
-    UserTracker.ConfigXml = ConfigXml;
-    UserTracker.PageContents = PageContent;
-    UserTracker.CurrentLocation = CurrentLocation;
-    
+    var existingData = window.localStorage.getItem("tsmale@rktcreative.com");
+
+    if (existingData == null) {
+        // new person, initialize everything
+        
+        UserTracker.CurrentLocation = CurrentLocation;
+        UserTracker.Email = "tsmale@rktcreative.com";
+        UserTracker.StartTime = new Date();
+
+    } else {
+        UserTracker = JSON.parse(existingData);
+    }
 }
 
 function UpdateCurrentLocation(loc) {
     UserTracker.CurrentLocation = loc;
+    saveTracker();
 }
 
 function addUserNavigation(from, to, how) {
@@ -37,5 +46,15 @@ function addUserNavigation(from, to, how) {
         description: how,
         time: new Date()
     };
-    UserTracker.ActivityTracking.push(navOb)
+    UserTracker.ActivityTracking.push(navOb);
+
+    if (UserTracker.VisitedPages.indexOf(to.Page) == -1) 
+        UserTracker.VisitedPages.push(to.Page);
+    
+
+    saveTracker();
+}
+
+function saveTracker() {
+    window.localStorage.setItem(UserTracker.Email, JSON.stringify(UserTracker));
 }
