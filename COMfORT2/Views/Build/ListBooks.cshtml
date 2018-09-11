@@ -10,51 +10,106 @@
     <link rel="stylesheet" href="~/Content/css/Management/ListBooks.css?v=0">
 }
 
+<x-main>
+    <x-page-description>
+        Create and compile customized training books targeted for the needs of specific experiments, or specific test subjects...
+    </x-page-description>
+    <x-records-head>
+        <x-action-primary>Select a training book to edit:</x-action-primary>
+        <x-action-secondary>
+            <a href="@Url.Action("ListPages", new { id = 0 })">Create new book...</a>
+            <a href="@Url.Action("ListPages", new { id = 0 })">Duplicate an existing book...</a>
+        </x-action-secondary>
+    </x-records-head>
+    <x-records>
 
-<table style="margin:0 auto">
-    <tr>
-        <th>Name</th>
-        <th>Version</th>
-        <th>Modified</th>
-        <th>Created</th>
-        <th>Published?</th>
-    </tr>
-    <tr>
-        <td colspan="5" style="text-align:center">
-            <a href="@Url.Action("ListPages", new { id = 0 })">new book</a>
-        </td>
-    </tr>
-    @foreach (var book in Model.OrderByDescending(x => x.ModifyDate))
-    {
-        <tr>
-            <td>
-                <a href="@Url.Action("ListPages", new { id = book.BookId })">
-                    @book.Name
-                </a>
-            </td>
-            <td>@book.Version</td>
-            <td>
-                <div>@book.ModifiedBy</div>
-                <div>@book.ModifyDate.ToShortDateString()</div>
-            </td>
-            <td>
-                <div>@book.CreatedBy</div>
-                <div>@book.CreateDate.ToShortDateString()</div>
-            </td>
+        @if (Model.Count() == 0)
+        {
+            <x-records-none>There are no training books available.</x-records-none>
+        }
+
+        @foreach (var book in Model.OrderByDescending(x => x.ModifyDate))
+        {
+            <x-record>
+                <title->
+                    <title-name>@book.Name</title-name>
+                    <title-version>version: @book.Version</title-version>
+                </title->
+                <history->
+                    <history-item>
+                        <history-item-label>created:</history-item-label>
+                        <history-item-date>@book.CreateDate.ToShortDateString()</history-item-date>
+                        <history-item-name>@book.CreatedBy</history-item-name>
+                    </history-item>
+                    <history-item>
+                        <history-item-label>modified:</history-item-label>
+                        <history-item-date>@book.ModifyDate.ToShortDateString()</history-item-date>
+                        <history-item-name>@book.ModifiedBy</history-item-name>
+                    </history-item>
+                </history->
+                <status->
+                    <status-label>published:</status-label>
+                    <status-value>@(book.Published ? "YES" : "NO")</status-value>
+                </status->
+                <action->@Html.ActionLink("configure book", "ListPages", new { id = book.BookId })</action->
+            </x-record>
+        }
 
 
-            @if (book.Published)
+        @*<table style="margin:0 auto">
+            <tr>
+                <th>Name</th>
+                <th>Version</th>
+                <th>Modified</th>
+                <th>Created</th>
+                <th>Published?</th>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align:center">
+                    <a href="@Url.Action("ListPages", new { id = 0 })">new book</a>
+                </td>
+            </tr>
+            @foreach (var book in Model.OrderByDescending(x => x.ModifyDate))
             {
-                <td>yes</td>
-            }
-            else
-            {
-                <td>no</td>
-            }
+                <tr>
+                    <td>
+                        <a href="@Url.Action("ListPages", new { id = book.BookId })">
+                            @book.Name
+                        </a>
+                    </td>
+                    <td>@book.Version</td>
+                    <td>
+                        <div>@book.ModifiedBy</div>
+                        <div>@book.ModifyDate.ToShortDateString()</div>
+                    </td>
+                    <td>
+                        <div>@book.CreatedBy</div>
+                        <div>@book.CreateDate.ToShortDateString()</div>
+                    </td>
 
-        </tr>
-    }
-</table>
+
+                    @if (book.Published)
+                    {
+                        <td>yes</td>
+                    }
+                    else
+                    {
+                        <td>no</td>
+                    }
+
+                </tr>
+            }
+        </table>*@
+
+
+
+
+
+
+    </x-records>
+</x-main>
+
+
 
 
 @section Scripts{

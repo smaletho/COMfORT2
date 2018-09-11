@@ -1,1 +1,24 @@
-﻿
+﻿x-main{display:block;width:960px;margin:48px auto 36px auto;font-family:Fira Sans Condensed;}
+x-page-description{display:block;margin-bottom:48px;}
+x-records-head{display:block;overflow:hidden;margin-bottom:16px;}
+x-action-primary{display:block;float:left;font-weight:500;font-family:Fira Sans;}
+/*x-action-secondary{display:block;float:right;}
+x-action-secondary a{padding-left:16px;}*/
+x-records{display:block;}
+x-records-none{display:block;font-style:italic;font-weight:200;text-align:center;margin:120px;font-size:20px;}
+x-record{display:block;border-top:1px solid #ddd;padding:10px 0px;}
+x-record:hover{background-color:#eee;}
+
+x-record>*{display:table-cell;vertical-align:middle;}
+title-{width:840px;padding-left:24px;}
+title-name{display:block;font-weight:700;}
+title-version{display:block;font-size:12px;font-weight:300;}
+/*history-{width:220px;}
+history-item{display:block;font-size:12px;}
+history-item-label{font-weight:300;}
+history-item-date{}
+history-item-name{font-weight:300;}
+status-{width:120px;font-size:12px;}
+status-label{font-weight:300;}
+status-value{font-weight:500;}*/
+action-{width:120px;font-weight:600;}
