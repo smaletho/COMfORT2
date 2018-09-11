@@ -107,10 +107,13 @@
     <Content Include="Content\css\Management\ChooseDownloadBook.css" />
     <Content Include="Content\css\Management\ListBooks.css" />
     <Content Include="Content\css\Management\MainMenu.css" />
+    <Content Include="Content\css\Management\ManagementBlankLayout.css" />
     <Content Include="Content\css\Management\ManagementShellLayout.css" />
     <Content Include="Content\css\pageContent.css" />
     <Content Include="Content\css\themes.css" />
     <Content Include="Content\css\viewer.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\back-arrow.png" />
     <Content Include="Content\images\forward-arrow.png" />
     <Content Include="Content\images\left-mask.png" />
@@ -126,6 +129,7 @@
     <Content Include="Content\js\Management\ChooseDownloadBook.js" />
     <Content Include="Content\js\Management\ListBooks.js" />
     <Content Include="Content\js\Management\MainMenu.js" />
+    <Content Include="Content\js\Management\ManagementBlankLayout.js" />
     <Content Include="Content\js\Management\ManagementShellLayout.js" />
     <Content Include="Content\js\navigation.js" />
     <Content Include="Content\js\offline.js" />
@@ -175,6 +179,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="fonts\FiraSans\Fonts.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -237,6 +242,11 @@
     <Content Include="fonts\FiraSans\Normal\Roman\FiraSans-Thin.woff" />
     <Content Include="fonts\FiraSans\Normal\Roman\FiraSans-UltraLight.woff" />
     <Content Include="App_Code\ImageManager.ashx" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Properties\PublishProfiles\COMfORT2vm - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />

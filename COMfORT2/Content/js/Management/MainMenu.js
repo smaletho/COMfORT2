@@ -3,7 +3,7 @@
 var navigateToUrl = '';
 
 function pageInit() {
-    $('menu-item').click(function () {
+    $('menu-item').mousedown(function () {
         $(this).addClass('menu-item-select');
         navigateToUrl = $(this).data('url');
         setTimeout(

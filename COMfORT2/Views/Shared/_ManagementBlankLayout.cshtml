@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">@*     tells IE to use the most recent available rendering engine    *@
     <title>@ViewBag.WindowTitle</title>
     @*  <%-- css styles 1: normalization: http://necolas.github.io/normalize.css/        --%>*@<link rel="stylesheet" href="~/Scripts/normalize-3.0.2.css">
-    @*  <%-- css styles 2: shared layout (common banner) classes:                        --%>*@<link rel="stylesheet" href="~/Content/css/Management/ManagementLayout.css?v=0">
+    @*  <%-- css styles 2: shared layout (common banner) classes:                        --%>*@<link rel="stylesheet" href="~/Content/css/Management/ManagementBlankLayout.css?v=0">
     @*  <%-- css styles 3: page-specific: inserted via view page: "@section Styles{}"    --%>*@@RenderSection("Styles", false)
     @*  <%-- javascript: put all javascript at the bottom, except for modernizr, which if needed goes in the head --%>*@
 </head>
 <body>
     @RenderBody()
     <script type="text/javascript" src="~/Content/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/Management/ManagementLayout.js?v=0"></script>
+    <script type="text/javascript" src="~/Content/js/Management/ManagementBlankLayout.js?v=0"></script>
     @RenderSection("Scripts", false)
 </body>
 </html>

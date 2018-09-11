@@ -1,1 +1,13 @@
 ﻿html {box-sizing: border-box;} *, *:before, *:after {box-sizing: inherit;} /* http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */ 
+
+management-shell-header{display:block;background-color:#aaa;border-bottom:2px solid #666;padding:4px 0px 4px 0px;font-family:Fira Sans;position:relative;}
+management-shell-header i{padding-right:4px;color:#666;}
+management-shell-title{display:block;text-align:center;font-weight:500;color:#666;}
+management-shell-title b{font-weight:700;color:#444;}
+management-shell-back{position:absolute;left:8px;top:2px;padding:2px 24px;}
+management-shell-menu{position:absolute;right:120px;top:2px;padding:2px 6px;}
+management-shell-logout{position:absolute;right:8px;top:2px;padding:2px 12px;}
+management-shell-header .button{border-radius:4px;cursor:pointer;}
+management-shell-header .button:hover{background-color:#ddd;}
+management-shell-header .select{background-color:#666 !important;color:#ccc;}
+management-shell-header .select i{color:#fff !important;}

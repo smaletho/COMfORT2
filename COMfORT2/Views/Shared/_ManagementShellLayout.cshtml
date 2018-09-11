@@ -6,11 +6,17 @@
     <title>@ViewBag.WindowTitle</title>
     @*  <%-- css styles 1: normalization: http://necolas.github.io/normalize.css/        --%>*@<link rel="stylesheet" href="~/Scripts/normalize-3.0.2.css">
     @*  <%-- css styles 2: shared layout (common banner) classes:                        --%>*@<link rel="stylesheet" href="~/Content/css/Management/ManagementShellLayout.css?v=0">
+    @*  <%-- css styles 3: FontAwesome: https://fontawesome.com                          --%>*@<link rel="stylesheet" href="~/Content/font-awesome.min.css">
     @*  <%-- css styles 3: page-specific: inserted via view page: "@section Styles{}"    --%>*@@RenderSection("Styles", false)
     @*  <%-- javascript: put all javascript at the bottom, except for modernizr, which if needed goes in the head --%>*@
 </head>
 <body>
-    <div>Common header goes here...</div>
+    <management-shell-header>
+        <management-shell-title><b>A</b>utonomous <b>M</b>edical <b>O</b>fficer <b>S</b>upport</management-shell-title>
+        <management-shell-back class="button" data-action="back"><i class="fa fa-arrow-circle-left fa-lg"></i>back</management-shell-back>
+        <management-shell-menu class="button" data-action="menu"><i class="fa fa-home fa-lg"></i>main menu</management-shell-menu>
+        <management-shell-logout class="button" data-action="logout"><i class="fa fa-suitcase fa-lg"></i>log out</management-shell-logout>
+    </management-shell-header>
     @RenderBody()
     <script type="text/javascript" src="~/Content/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="~/Content/js/Management/ManagementShellLayout.js?v=0"></script>
